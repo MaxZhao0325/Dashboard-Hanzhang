@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% block title %}
+ema
+{% endblock %}
+
+{% load static %}
+{% block content %}
+<h1 style="text-align: center; padding:20px;">Ema table</h1>
+    {% if emo %}
+        <div class="row">
+            <div class="col-md-2 mb-3" style="padding:20px;">
+                <ul class="nav nav-pills flex-column" id="myTab" role="tablist" style="padding:20px;">
+                    <li class="nav-item" style="padding:20px;">
+                        <a class="nav-link active" data-toggle="tab" href="#note" role="tab" aria-selected="true">note</a>
+                    </li>
+                    {% for dep_id in emo %}
+                    <li class="nav-item" style="padding:20px;">
+                        <a class="nav-link" data-toggle="tab" href="#tab{{dep_id.0}}" role="tab" aria-selected="true">{{dep_id.0}}</a>
+                    </li>
+                    {% endfor%}
+                </ul>
+            </div>
+            <div class="col-md-10" >
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane active" id="note" role="tabpanel">
+                        <div class="card text-center" style="height: 650px; margin: 20px; ">
+                            <h1>Ema table instruction</h1>
+                            <p>some text here</p>
+                        </div>
+                    </div>
+                    {% for dep_id in emo %}
+                        <div class="tab-pane fade" id="tab{{dep_id.0}}" role="tabpanel" style="padding:20px;">
+                            <div class="card text-center">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding:20px;">
+                                    <li class="nav-item" style="padding:20px;">
+                                        <a class="nav-link active" data-toggle="pill" href="#home{{dep_id.0}}" role="tab" aria-selected="true">Data_test</a>
+                                    </li>
+                                    <li class="nav-item" style="padding:20px;">
+                                        <a class="nav-link" data-toggle="pill" href="#emotion{{dep_id.0}}" role="tab">Emotion</a>
+                                    </li>
+                                    <li class="nav-item" style="padding:20px;">
+                                        <a class="nav-link" data-toggle="pill" href="#action{{dep_id.0}}" role="tab">Action</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent" >
+                                    <div class="tab-pane fade show active" id="home{{dep_id.0}}" role="tabpanel" style="padding:20px;">
+                                        <h2>{{dep_id.0}} DATA</h2>
+                                        <p>{{dep_id.0}}</p>
+                                        <p>{{dep_id.1}}</p>
+                                        <p>{{dep_id.2}}</p>
+                                        <p>{{dep_id.3}}</p>
+                                        <p>{{dep_id.4}}</p>
+                                        <p>{{dep_id.5}}</p>
+                                        <p>{{dep_id.6}}</p>
+                                        <p>a</p>
+                                        <p>{{act.0}}</p>
+                                        <p>b</p>
+                                        <p>{{act.1}}</p>
+                                        <p>c</p>
+                                        <p>{{act.2}}</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="emotion{{dep_id.0}}" role="tabpanel"  >
+                                        <div id="emo{{dep_id.0}}" style="width: 50%; margin-left:  200px;"  class="plotly-graph-div"></div>
+                                            <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('emo{{dep_id.0}}')
+                                                    var resizeDebounce = null;
+
+                                                    function resizePlot() {
+                                                        var bb = gd.getBoundingClientRect();
+                                                        Plotly.relayout(gd, {
+                                                            width: bb.width,
+                                                            height: bb.height
+                                                        });
+                                                    }
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Happy",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1|safe}},
+                                                            "y": {{dep_id.2}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#E74C3C", "width": 3},
+                                                            "name": "Angry",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1|safe}},
+                                                            "y": {{dep_id.3}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#E74C3C',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#3498DB", "width": 3},
+                                                            "name": "natural",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1|safe}},
+                                                            "y": {{dep_id.4}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#3498DB',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#F4D03F", "width": 3},
+                                                            "name": "sad",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1|safe}},
+                                                            "y": {{dep_id.5}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#F4D03F',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#7B7D7D", "width": 3},
+                                                            "name": "other",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1|safe}},
+                                                            "y": {{dep_id.6}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#7B7D7D',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        }],
+
+                                                        layout: {
+                                                            "title": "Emotion - Time Series Hourly Count",
+                                                            "width": 1360,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                        }]
+                                                                    }
+                                                                },
+                                                                "yaxis": {
+                                                                    "title": "Count",
+                                                                    dtick: 1,
+                                                                    },
+                                                                "height": 620
+                                                            },
+                                                        frames: [],
+                                                    });
+
+                                               }());
+                                            </script>
+                                    </div>
+                                    <div class="tab-pane fade" id="action{{dep_id.0}}" role="tabpanel">
+                                        <div id="act{{dep_id.0}}" style="width:100%; margin-left:  200px;"  class="plotly-graph-div"></div>
+                                            <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('act{{dep_id.0}}')
+                                                    var resizeDebounce = null;
+
+                                                    function resizePlot() {
+                                                        var bb = gd.getBoundingClientRect();
+                                                        Plotly.relayout(gd, {
+                                                            width: bb.width,
+                                                            height: bb.height
+                                                        });
+                                                    }
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Action",
+                                                            "type": "scatter",
+                                                            "x": {{act.0|safe}},
+                                                            "y": {{act.1}},
+                                                            text: {{act.2|safe}},
+                                                            mode: 'markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Action - Time Series",
+                                                            "width": 1360,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                        }]
+                                                                    }
+                                                                },
+                                                                "yaxis": {
+                                                                    tickvals: [1,2,3,4],
+                                                                    ticktext: ['Timeout:','Breathing:','Bodyscan:','Activities:'],
+
+                                                                    },
+                                                                "height": 620
+                                                            },
+                                                        frames: [],
+                                                    });
+
+                                               }());
+                                            </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor%}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+{% load socialaccount %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HOME</title>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+</head>
+<style>
+#header{
+    height: 100vh;
+    background-image: linear-gradient(to left,rgba(255,255,255,0),rgba(255,255,255,1)), url({% static 'images/patient-and-caregiver-04.jpg'%});
+    background-position: center;
+    background-size: cover;
+}
+</style>
+<body>
+    <section id="header">
+        <div class="container">
+            <h1 class="rainbow-text" style=" font-size: 72px;
+                                              background: -webkit-linear-gradient(#1B4F72, #2980B9);
+                                              -webkit-background-clip: text;
+                                              -webkit-text-fill-color: transparent;
+        "><br><br>PCR</h1>
+            <div class="header-text">
+                <h1>Learning and Improving Alzheimer's Patient-Caregiver Relationships via Smart Healthcare Technology</h1>
+
+                <a>Supported by <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1838615"><button class="common-btn">National Science Foundation (NSF)</button></a></h3>
+                <div class="line">
+                    <span class="line-1"></span><br>
+                    <span class="line-2"></span><br>
+                    <span class="line-3"></span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
+    <nav id="sideNav">
+        <ul>
+<!--            {% if user.is_authenticated %}-->
+<!--            <li><H1 class="lead">Hi {{ user.username }}</H1><li>-->
+<!--            {% endif%}-->
+            <li><a href="#header">HOME</a></li>
+            <li><a href="#Our_System">Our System</a></li>
+            <li><a href="#Our_Team">Our Team</a></li>
+            <li><a href="#Contact_Us">Contact Us</a></li>
+            <li><a href="/dataviewer/tracking">Tracking table</a>
+            <li>
+            <li><a href="/dataviewer/daily">Daily table</a>
+            <li>
+            <li><a href="/dataviewer/weekly">Weekly table</a>
+            <li>
+            <li><a href="/dataviewer/feedback">Feedback table</a>
+<!--            {% if user.is_authenticated %}-->
+<!--            <hr class="my-4">-->
+<!--            <li><a href="{% url 'ema'%}">EMA table</a><li>-->
+<!--            <li><a href="{% url 'reward'%}">Reward table</a><li>-->
+<!--            <hr class="my-4">-->
+<!--                <form method="post" action="/accounts/logout/">-->
+<!--                    {% csrf_token %}-->
+<!--                    <li><button style="background-color:#F5B041; text-align:center; padding: 16px 32px; border: none;" type="submit" onclick="return window.confirm('You are going to Sign out and back to the home page');"><a><h2>Sign Out</h2></a></button></li>-->
+<!--                </form>-->
+<!--            {% else %}-->
+<!--                <hr class="my-4">-->
+<!--                <li style="background-color:#E74C3C; text-align:center; padding: 16px 32px;"><a style="text-decoration: none" href="{% provider_login_url 'google' %}?next=/"><h2>Sign in with Google</h2></a></li>-->
+<!--            {% endif %}-->
+
+        </ul>
+    </nav>
+
+    <img src="{% static 'images/menu.png'%}" id="menuBtn">
+
+<section id="features">
+    <div class="feature-row">
+        <div class="feature-col">
+            <img src="{% static 'images/pic-1.png'%}">
+            <h4>Motivation</h4>
+            <p>Alzheimer's and other dementias also takes a toll on caregivers. Poor interactions between patient and caregiver increase the difficulty of providing care: when reactivity is heightened, a stress response ensues and maladaptive behaviors and emotions are elicited.</p>
+        </div>
+        <div class="feature-col">
+            <img src="{% static 'images/pic-2.png'%}">
+            <h4>Solution</h4>
+            <p>To provide just-in-time recommendations in stressful moments moments, we build s a system monitoring for mood by speech, building classifiers that work in realistic home settings, and supporting an adaptive recommendation system to reduce stress of the caregiver.</p>
+        </div>
+        <div class="feature-col">
+            <img src="{% static 'images/pic-3.png'%}">
+            <h4>Patient-Caregiver Relationship (PCR) System</h4>
+            <p>
++ Mood detection in realistic home environments in which background noises are expected.<br>
+
++ Adaptive recommendation system to reduce stress of the caregiver by recommending mindfulness exercises when conflict is detected<br>
+
++ Morning and evening encouragements to caregivers as they don't always receive affirmation for the important role they play.</p>
+        </div>
+    </div>
+    <div class="feature-btn">
+       <div class="line">
+            <span class="line-1"></span><br>
+            <span class="line-2"></span><br>
+            <span class="line-3"></span>
+        </div>
+        <button class="common-btn">Learn more</button>
+    </div>
+</section>
+
+<section id="Affliations">
+    <div class="feature-btn">
+       <div class="line">
+            <H2>Affliations</H2>
+        </div>
+    </div>
+    <br>
+    <div class="feature-row">
+        <div class="feature-col">
+            <img src="{% static 'images/uva.png'%}">
+            <h4>Department of Computer Science, University of Virginia</h4>
+            <p>The following team members are from the CS department of UVa: Dr. Jack Stankovic, Dr. Hongning Wang, Meiyi Ma, Ashley Gao, Aobo Yang, Lahiru Nuwan, Jason Jabbour</p>
+        </div>
+        <div class="feature-col">
+            <img src="{% static 'images/osu.jpg'%}">
+            <h4>College of Nursing, Ohio State University</h4>
+            <p>The following team members are from the College of Nursing of OSU: Dr. Karen Rose, Emma Schlegel, Eunjung Ko.</p>
+        </div>
+        <div class="feature-col">
+            <img src="{% static 'images/utk.png'%}">
+            <h4>Department of Psychology, University of Tennessee</h4>
+            <p>The following team members are from the Psychology department of UTK: Dr. Kristina Gordon, Matt McCall.</p>
+        </div>
+    </div>
+
+</section>
+
+<section id="Our_System">
+    <div class="about-left-col">
+        <img src="{% static 'images/patient-and-caregiver-01.jpg'%}">
+    </div>
+    <div class="about-right-col">
+        <div class="about-text">
+            <h1>Our System</h1>
+            <span class="square"></span>
+            <h4>Our system consists of the Acoustic System, the Recommender System & EMA, the Program Monitor (M2G), and the cloud. If you are our caregiver participant looking for the FAQ section on how to install system, please click on the FAQ button</h4><br><br>
+            <button class="common-btn">FAQ</button><br><br>
+            <div class="line"><br>
+                <span class="line-1"></span><br>
+                <span class="line-2"></span><br>
+                <span class="line-3"></span>
+            </div>
+            
+            <h2>"Of the total lifetime cost of caring for someone with dementia, 70% is borne by families"</h2>
+        </div>
+    </div>
+</section>
+
+<section id="Our_Team">
+    <div class="container course-row">
+        <div class="course-left-col">
+            <div class="course-text">
+                <h1>Our Team</h1>
+                <span class="square"></span>
+                <h4>Our multidisciplinary team consists of researchers of Computer Science, Nursing, and Psychology backgrounds. Our team members are from the University of Virginia (UVa), the Ohio State University (OSU), and the University of Tennessee (UTK).</h4>
+                <button class="common-btn">Details</button>
+                <div class="line">
+                    <span class="line-1"></span><br>
+                    <span class="line-2"></span><br>
+                    <span class="line-3"></span>
+                </div>
+                <h2>"Compared with caregivers of people without dementia, twice as many caregivers of those with dementia indicate substantial emotional, financial and physical difficulties."</h2>
+            </div>
+        </div>
+        <div class="course-right-col"  >
+            <img src="{% static 'images/patient-and-caregiver-03.jpg'%}">
+        </div>
+    </div>
+</section>
+
+<section id="Contact_Us">
+    <div class="about-left-col">
+        <img src="{% static 'images/patient-and-caregiver-02.jpg'%}">
+    </div>
+    <div class="about-right-col">
+        <div class="about-text">
+            <h1>Our System</h1>
+            <span class="square"></span>
+            <h4>If you are one of our participants and would like our help on setting up / troubleshooting your equipment, please contact Ashley Gao at yg9ca at virginia dot edu, or send the message using the text box below</h4
+            <br><br><p> Link Lab, Olsson Hall,<br>
+                University of Virginia<br>
+                151 Engineer's Way, Charlottesville,<br>
+                Virginia, 22903</p><br>
+            <div class="line"><br>
+                <span class="line-1"></span><br>
+                <span class="line-2"></span><br>
+                <span class="line-3"></span>
+            </div>
+
+            <h2>"More than 16 million Americans provide care for patients with Alzheimer’s or other dementias."</h2>
+        </div>
+    </div>
+</section>
+
+<div class="row" style="max-width: 500px;margin-left:auto;
+margin-right:auto;">
+        <form>
+            <div class="row mb-2">
+                <div class="form-group col-xl-6">
+                    <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name" required="">
+                </div>
+                <div class="form-group col-xl-6 pl-xl-1">
+                    <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Message" required="" style="width: 350px;height: 150px;"></textarea>
+            </div>
+
+        <div class="btn-box" >
+            <button class="common-btn">Send it Now</button>
+        </div>
+        </form>
+</div>
+      
+<!--Footer      -->
+       
+<section id="footer">
+    <div class="container footer-row">
+        <hr>
+        <div class="footer-right-col">
+            <div class="footer-info">
+                <div class="copyright-text">
+                    <small>Copyright © 2021 University of Virginia</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+     
+<div class="social-icons">
+    <img src="{% static 'images/facebook.png'%}">
+    <img src="{% static 'images/instagram.png'%}"">
+    <img src="{% static 'images/twitter.png'%}"">
+    <img src="{% static 'images/linkedin.png'%}"">
+</div>
+                                                                                                                   
+    
+    <script>
+        var menuBtn = document.getElementById("menuBtn");
+        var sideNav = document.getElementById("sideNav");
+        
+        sideNav.style.right = "-250px";
+        menuBtn.onclick = function(){
+            if(sideNav.style.right == "-250px"){
+                sideNav.style.right = "0";
+            }
+            else{
+                sideNav.style.right = "-250px";
+            }
+        }
+        
+        var scroll = new SmoothScroll('a[href*="#"]',{
+            speed: 1000,
+            speedAsDuration: true
+        });
+
+        
+        
+    </script>
+    
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

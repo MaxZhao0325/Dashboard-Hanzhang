@@ -1,0 +1,1118 @@
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMA</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css'%}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+
+    <style>
+        .btn {
+            border: none;
+            outline: none;
+            padding: 10px 16px;
+            background-color: #f1f1f1;
+            color: black;
+            cursor: pointer;
+          }
+    </style>
+</head>
+
+
+<body>
+<section id="header">
+    <div class="container">
+        <h1 class="rainbow-text" style="position: absolute;
+                                                top: 15px;
+                                                left: 30px;
+                                                font-size: 50px;
+                                                background: -webkit-linear-gradient(#1B4F72, #2980B9);
+                                                -webkit-background-clip: text;
+                                                -webkit-text-fill-color: transparent;
+            ">PCR</h1>
+        <nav class="drown">
+            <ul>
+                <li><a href="/dataviewer/tracking">Tracking</a></li>
+                <li><a href="/dataviewer/daily">Daily</a></li>
+                <li><a href="/dataviewer/weekly">Weekly</a></li>
+                <!--                <li><a href="/dataviewer/feedback">Feedback</a></li>-->
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<div class="loader-wrapper">
+    <p>loading....</p>
+</div>
+<script>
+    $(window).on("load",function(){
+        $(".loader-wrapper").fadeOut("slow");
+    });
+</script>
+
+<nav class="side" id="sideNav">
+    <ul>
+        <!--        {% if user.is_authenticated %}-->
+        <!--        <li><p class="lead">Hi {{ user.username }}!</p><li>-->
+        <li><a href="/">HOME</a></li>
+        <li><a href="/dataviewer/tracking">Tracking table</a>
+        <li>
+        <li><a href="/dataviewer/daily">Daily table</a>
+        <li>
+        <li><a href="/dataviewer/weekly">Weekly table</a>
+        <li>
+        <li><a href="/dataviewer/feedback">Feedback table</a>
+        <li>
+            <hr class="my-4">
+            <!--        <form method="post" action="/accounts/logout/">-->
+            <!--            {% csrf_token %}-->
+            <!--          <button style="text-decoration: none" class="btn btn btn-warning btn-lg btn-block" type="submit" onclick="return window.confirm('You are going to Sign out and back to the home page');" >Sign Out</button>-->
+            <!--        </form>-->
+            <!--        {% else %}-->
+            <!--            <script type="text/javascript">-->
+            <!--                var msg = confirm("Please login");-->
+            <!--                if (msg) {-->
+            <!--                    window.location.href = "/";-->
+            <!--                }-->
+            <!--            </script>-->
+            <!--        {% endif %}-->
+
+    </ul>
+</nav>
+<img src="{% static 'images/menu.png'%}" id="menuBtn">
+
+<section id="features">
+    <div class="feature-row">
+
+        <div class="col-md-2 mb-3" style="padding:15px;">
+            <ul class="nav nav-pills flex-column" id="myTab" role="tablist" style="padding:15px;">
+                <li class="nav-item" style="padding:15px;">
+                    {% if dept_id %}
+                    <a class="btn" style="text-transform:none" href="/dataviewer/tracking" role="button" aria-selected="true">Instruction</a>
+                    {% else %}
+                    <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking" role="button" aria-selected="true">Instruction</a>
+                    {% endif %}
+                </li>
+                {% for dep_id in dept_list %}
+                {% if dep_id == dept_id %}
+                <li class="nav-item" style="padding:15px;">
+                    <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dep_id}}" role="button" aria-selected="true">{{dep_id}}</a>
+                </li>
+                {% else %}
+                <li class="nav-item" style="padding:15px;">
+                    <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dep_id}}" role="button" aria-selected="true">{{dep_id}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}        
+            </ul>
+        </div>
+
+        <div class="col-md-10">
+            <div class="tab-content" id="myTabContent">
+            
+                {% if not dept_id %}
+                <div class="tab-pane active" id="note" role="tabpanel">
+                    <div class="card text-center" style="height: 650px; margin: 20px; ">
+                        <br>
+                        <h1>Tracking table instruction</h1>
+                        <hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="list-group" id="list-tab" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-Emotion-list"
+                                           data-toggle="list" href="#Emotion" role="tab"
+                                           aria-controls="Emotion" onclick="">Emotion</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Action-list"
+                                           data-toggle="list" href="#Action" role="tab"
+                                           aria-controls="Action">Action</a>
+                                        <a class="list-group-item list-group-item-action" id="list-baseline-list"
+                                           data-toggle="list" href="#baseline" role="tab" aria-controls="baseline">Stress
+                                            level at baseline (baseline period)</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Post-list"
+                                           data-toggle="list" href="#list-Post" role="tab" aria-controls="Post">Post
+                                            recommendation responses</a>
+                                        <a class="list-group-item list-group-item-action" id="list-PostPie-list"
+                                           data-toggle="list" href="#list-PostPie" role="tab" aria-controls="PostPie">Post
+                                            recommendation responses - pie</a>
+                                        <a class="list-group-item list-group-item-action" id="list-PostSum-list"
+                                           data-toggle="list" href="#list-PostSum" role="tab" aria-controls="PostSum">Post
+                                            recommendation responses - cumulative</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="Emotion" role="tabpanel"
+                                             aria-labelledby="list-Emotion-list" style="text-align:left;"> The multiple
+                                            line graphs show how many times for an hour you have felt one of the
+                                            emotions (happy, angry, neutral, sad, conflict, and others), according to
+                                            the collected voice data.
+                                        </div>
+                                        <div class="tab-pane fade" id="Action" role="tabpanel"
+                                             aria-labelledby="list-Action-list" style="text-align:left;">
+                                            The dot chart shows which stressful management recommendation messages
+                                            (time-out, breathing [i.e., deep breathing], body scan, enjoyable activities
+                                            [i.e., activities]) you have received and when you have received them.
+
+                                        </div>
+                                        <div class="tab-pane fade" id="baseline" role="tabpanel"
+                                             aria-labelledby="list-baseline-list" style="text-align:left;">
+                                            The line graph shows how stressed or tense you felt during the baseline
+                                            period on a scale from 0 to 10
+                                            <br>· 0 (not tense or stressed at all) – 10 (very tense or stressed)
+
+                                        </div>
+                                        <div class="tab-pane fade" id="list-Post" role="tabpanel"
+                                             aria-labelledby="list-Post-list" style="text-align:left;">
+                                            There are two features: green line and red bar.
+                                            <br>·
+                                            <text style="color:#2ECC71">Yes (green)</text>
+                                            : The green line graph indicates you followed a stress management tip after
+                                            receiving the message and shows the rating score about how helpful the
+                                            activity was, ranging from 0 to 10.
+                                            <br>·
+                                            <text style="color:#E74C3C">No (red)</text>
+                                            : The red bar graph indicates you did not follow the tip after receiving the
+                                            message. It shows the reason for not following the activity.
+
+                                        </div>
+                                        <div class="tab-pane fade" id="list-PostPie" role="tabpanel"
+                                             aria-labelledby="list-PostPie-list" style="text-align:left;">
+                                            The pie chart shows the proportion of collected reasons for not following
+                                            the activity
+
+                                        </div>
+                                        <div class="tab-pane fade" id="list-PostSum" role="tabpanel"
+                                             aria-labelledby="list-PostSum-list" style="text-align:left;">
+                                            The cumulative chart shows the proportion of collected reasons for not
+                                            following the activity by time series
+                                            which is illustrated in the “post recommendation responses” section.
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="tab-pane active" id="tabs{{dept_id}}" role="tabpanel" style="padding:15px;">        
+                    <div class="card text-center">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding:15px;">                    
+                            <li class="nav-item" style="padding:15px;">
+                                {% if emotion_steps %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/emotion" role="button" >Emotion</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/emotion" role="button" >Emotion</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item" style="padding:15px;">
+                                {% if emotion_counter %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/emotion_table" role="button" >Emotion Table</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/emotion_table" role="button" >Emotion Table</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item" style="padding:15px;">
+                                {% if act_list %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/action" role="button" >Action</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/action" role="button" >Action</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item" style="padding:15px;">
+                                {% if baseline_list %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/stress_level" role="button" >Stress level at baseline</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/stress_level" role="button" >Stress level at baseline</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item" style="padding:15px;">
+                                {% if postrecomm_list %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/post_rec" role="button" >Post Recommendation Responses</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/post_rec" role="button" >Post Recommendation Responses</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item" style="padding:15px;">
+                                {% if postrecomm_pie %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/post_rec_pie" role="button" >Post Recommendation Responses - pie</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/post_rec_pie" role="button" >Post Recommendation Responses - pie</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item" style="padding:15px;">
+                                {% if postrecomm_sum %}
+                                <a class="btn btn-primary" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/post_rec_cum" role="button" >Post Recommendation Responses - cumulative</a>
+                                {% else %}
+                                <a class="btn" style="text-transform:none" href="/dataviewer/tracking/{{dept_id}}/post_rec_cum" role="button" >Post Recommendation Responses - cumulative</a>
+                                {% endif %}
+                            </li>            
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+
+                            <!-- emotion tab -->
+                            {% if emotion_steps %}
+                            <div class="tab-pane active" id="emotion{{dept_id}}" role="tabpanel">
+                                <div id="emo{{dept_id}}" style="width: 100%; height: 100%;" class="plotly-graph-div"></div>
+                                <script type="text/javascript">
+                                                (function(){
+
+                                                    var gd = document.getElementById('emo{{dept_id}}')
+                                                    var parent_width = $("#myTabContent").width()
+
+                                                    Plotly.newPlot(gd, {
+                                                        data: [{
+                                                            // "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Happy",
+                                                            "type": "bar",
+                                                            "x": {{emotion_steps.0|safe}},
+                                                            "y": {{emotion_steps.1}},
+                                                            // mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#E74C3C", "width": 3},
+                                                            "name": "Angry",
+                                                            "type": "bar",
+                                                            "x": {{emotion_steps.0|safe}},
+                                                            "y": {{emotion_steps.2}},
+                                                            // mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#E74C3C',
+                                                            }
+                                                        },{
+                                                            // "line": {"color": "#3498DB", "width": 3},
+                                                            "name": "Neutral",
+                                                            "type": "bar",
+                                                            "x": {{emotion_steps.0|safe}},
+                                                            "y": {{emotion_steps.3}},
+                                                            // mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#3498DB',
+                                                            }
+                                                        },{
+                                                            // "line": {"color": "#F4D03F", "width": 3},
+                                                            "name": "Sad",
+                                                            "type": "bar",
+                                                            "x": {{emotion_steps.0|safe}},
+                                                            "y": {{emotion_steps.4}},
+                                                            // mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#F4D03F',
+                                                            }
+                                                        },{
+                                                            // "line": {"color": "#7B7D7D", "width": 3},
+                                                            "name": "Other",
+                                                            "type": "bar",
+                                                            "x": {{emotion_steps.0|safe}},
+                                                            "y": {{emotion_steps.5}},
+                                                            // mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#7B7D7D',
+                                                            }
+                                                        },{
+                                                            // "line": {"color": "#78281F", "width": 3},
+                                                            "name": "Conflict",
+                                                            "type": "bar",
+                                                            "x": {{emotion_steps.0|safe}},
+                                                            "y": {{emotion_steps.6}},
+                                                            // mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#78281F',
+                                                            }
+                                                        }],
+
+                                                        layout: {
+                                                            "title": "Emotion - Time Series Hourly Count",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "range":["{{date_default_str}}","{{latest_time_str}}"],
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward",
+                                                                        
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 30,
+                                                                        "label": "30d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                        },],             
+                                                                }
+                                                            },
+                                                            "yaxis": {
+                                                                "title":"Count"
+                                                            },                                        
+                                                            "barmode":'stack'
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+                                </script>
+                            </div>
+
+                            <!-- emotion_table tab -->
+                            {% elif emotion_counter %}
+                                <div class="tab-pane active" id="emotion_table" role="tabpanel">
+                                    <h1>Total emotion count</h1>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Baseline</th>
+                                            <th scope="col">Intervention period</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="table-success">
+                                            <th scope="row">Happy</th>
+                                            <td>{{emotion_counter.0.0}}</td>
+                                            <td>{{emotion_counter.1.0}}</td>
+                                            <td>{{emotion_counter.2.0}}</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <th scope="row">Angry</th>
+                                            <td>{{emotion_counter.0.1}}</td>
+                                            <td>{{emotion_counter.1.1}}</td>
+                                            <td>{{emotion_counter.2.1}}</td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <th scope="row">Nature</th>
+                                            <td>{{emotion_counter.0.2}}</td>
+                                            <td>{{emotion_counter.1.2}}</td>
+                                            <td>{{emotion_counter.2.2}}</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <th scope="row">Sad</th>
+                                            <td>{{emotion_counter.0.3}}</td>
+                                            <td>{{emotion_counter.1.3}}</td>
+                                            <td>{{emotion_counter.2.3}}</td>
+                                        </tr>
+                                        <tr class="table-secondary">
+                                            <th scope="row">Other</th>
+                                            <td>{{emotion_counter.0.4}}</td>
+                                            <td>{{emotion_counter.1.4}}</td>
+                                            <td>{{emotion_counter.2.4}}</td>
+                                        </tr>
+                                        <tr class="table-dark">
+                                            <th scope="row">conflict</th>
+                                            <td>{{emotion_counter.0.5}}</td>
+                                            <td>{{emotion_counter.1.5}}</td>
+                                            <td>{{emotion_counter.2.5}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <br><br>
+                                </div>
+
+                            <!-- action tab -->
+                            {% elif act_list %}
+                            <div class="tab-pane active" id="action" role="tabpanel">
+                                <div id="act{{dept_id}}" class="plotly-graph-div"></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    var gd = document.getElementById('act{{dept_id}}')
+                                                    var parent_width = $("#myTabContent").width()
+
+                                                    Plotly.newPlot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#7B7D7D", "width": 3},
+                                                            "name": "N/A",
+                                                            "type": "scatter",
+                                                            "x": {{act_list.0.2|safe}},
+                                                            "y": {{act_list.0.0}},
+                                                            text: {{act_list.0.1|safe}},
+                                                            mode: 'markers',
+                                                            marker: {
+                                                                color: '#7B7D7D',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        },{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Timeout",
+                                                            "type": "scatter",
+                                                            "x": {{act_list.1.2|safe}},
+                                                            "y": {{act_list.1.0}},
+                                                            text: {{act_list.1.1|safe}},
+                                                            mode: 'markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        },{
+                                                            "line": {"color": "#E74C3C", "width": 3},
+                                                            "name": "Breathing",
+                                                            "type": "scatter",
+                                                            "x": {{act_list.2.2|safe}},
+                                                            "y": {{act_list.2.0}},
+                                                            text: {{act_list.2.1|safe}},
+                                                            mode: 'markers',
+                                                            marker: {
+                                                                color: '#E74C3C',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        },{
+                                                            "line": {"color": "#3498DB", "width": 3},
+                                                            "name": "Bodyscan",
+                                                            "type": "scatter",
+                                                            "x": {{act_list.3.2|safe}},
+                                                            "y": {{act_list.3.0}},
+                                                            text: {{act_list.3.1|safe}},
+                                                            mode: 'markers',
+                                                            marker: {
+                                                                color: '#3498DB',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        },{
+                                                            "line": {"color": "#F4D03F", "width": 3},
+                                                            "name": "Activities",
+                                                            "type": "scatter",
+                                                            "x": {{act_list.4.2|safe}},
+                                                            "y": {{act_list.4.0}},
+                                                            text: {{act_list.4.1|safe}},
+                                                            mode: 'markers',
+                                                            marker: {
+                                                                color: '#F4D03F',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Action - Time Series",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                    }]
+                                                                }
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [0,1,2,3,4],
+                                                                ticktext: ['N/A:','Timeout:','Breathing:','Bodyscan:','Activities:'],
+
+                                                            },
+                                                        },
+                                                    });
+
+
+                                               }());                                           
+                                </script>
+                                <p>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#Time-out" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2">Time-out
+                                    </button>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#Deep_breathing" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2">Deep breathing
+                                    </button>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#Body_scan" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2">Body scan
+                                    </button>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#Activities" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2">Enjoyable activities
+                                    </button>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target=".multi-collapse" aria-expanded="false"
+                                            aria-controls="multiCollapseExample1 multiCollapseExample2">Show all
+                                    </button>
+                                </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="collapse multi-collapse" id="Time-out">
+                                            <div class="card card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">ACTION</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">0</th>
+                                                        <td>Time to take a brief break.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Take a quick moment for yourself.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Take some time to “put on your oxygen mask.”</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Step away for a moment.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">4</th>
+                                                        <td>It seems like this could be a good time to take a
+                                                            time-out.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">5</th>
+                                                        <td>Feel free to step away if you need to collect your
+                                                            thoughts.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">6</th>
+                                                        <td>Feel free to step away if you need to settle yourself.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">7</th>
+                                                        <td>It seems like you could use some uninterrupted personal
+                                                            time, can you engage your family member in an activity that
+                                                            they enjoy?
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">8</th>
+                                                        <td>Engage [insert name] in an engaging activity and give
+                                                            yourself a few moments of personal time?
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="collapse multi-collapse" id="Deep_breathing">
+                                            <div class="card card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">ACTION</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">9</th>
+                                                        <td>Try some breathing exercises on your mindfulness training
+                                                            app.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">10</th>
+                                                        <td>Now is a good time to perform a breathing meditation using
+                                                            the mindfulness app or one of these recordings. (provide
+                                                            list of guided breathing audio)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">11</th>
+                                                        <td>Now is a good time to perform a breathing exercise. Please
+                                                            use a guided breathing from either the mindfulness app or
+                                                            the list provided below. (provide list of guided breathing
+                                                            audio)
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="collapse multi-collapse" id="Body_scan">
+                                            <div class="card card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">ACTION</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">12</th>
+                                                        <td>Open your mindfulness training app or listen to one these
+                                                            recordings and perform a body scan meditation. (provide list
+                                                            of body scan audio)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">13</th>
+                                                        <td>Perform a body scan using your mindfulness training app or
+                                                            the guided body scan meditation provided. (provide list of
+                                                            body scan audio)
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="collapse multi-collapse" id="Activities">
+                                            <div class="card card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">ACTION</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">14</th>
+                                                        <td>You know [your family member] best, what’s an activity that
+                                                            [he/she] has always enjoyed?-included in caregiver training.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">15</th>
+                                                        <td>Are you able to set up an activity for your family member
+                                                            now?
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">16</th>
+                                                        <td>Now might be a good time to start an activity with/for your
+                                                            family member.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">17</th>
+                                                        <td>You and your family member may benefit from engaging in an
+                                                            activity that you both enjoy.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">18</th>
+                                                        <td>Now might be a good time to do something you and [your
+                                                            family member/insert name] love doing together.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">19</th>
+                                                        <td>Can you start an activity with/for [your family
+                                                            member/insert name] that would make you both feel calmer?
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">20</th>
+                                                        <td>Trying engaging [your family member/insert name] in an
+                                                            activity or task that provides them with a sense of ease.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">21</th>
+                                                        <td>Grab your activity box</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- stress_level tab -->
+                            {% elif baseline_list %}
+                            <div class="tab-pane active" id="stree_level{{dept_id}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="stress_lv{{dept_id}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                    (function(){
+                                        window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                        var gd = document.getElementById('stress_lv{{dept_id}}');
+                                        var parent_width = $("#myTabContent").width();
+
+                                        Plotly.newPlot(gd, {
+                                            data: [{
+                                                "line": {"color": "#2ECC71", "width": 3},
+                                                "name": "Rating",
+                                                "type": "scatter",
+                                                "x": {{baseline_list.0|safe}},
+                                                "y": {{baseline_list.1}},
+                                                mode: 'lines+markers',
+                                                marker: {
+                                                    color: '#2ECC71',
+                                                    size: 8,
+                                                    symbol: 'circle'
+                                                },
+                                            }],
+
+                                            layout: {
+
+                                                "title": "Stress level at baseline",
+                                                "width": parent_width-50,
+                                                "autosize": true,
+                                                "xaxis": {
+                                                    "type": "date",
+                                                    "title": "UTC Timestamp",
+                                                    "rangeslider": {},
+                                                    "rangeselector": {
+                                                        "buttons": [{
+                                                            "step": "day",
+                                                            "count": 1,
+                                                            "label": "1d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "day",
+                                                            "count": 7,
+                                                            "label": "7d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "day",
+                                                            "count": 14,
+                                                            "label": "14d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "all"
+                                                        }]
+                                                    }
+                                                },
+                                                "yaxis": {
+                                                    dtick: 1,
+                                                    rangemode: 'tozero',
+                                                    range: [0, 10]
+                                                },
+                                            },
+                                            useResizeHandler: true,
+                                            style: {width: "100%", height: "100%"},
+                                            config : {
+                                                    responsive: true
+                                            },
+                                        });
+
+                                   }());
+                                </script>
+                            </div>
+
+                            <!-- post_rec tab -->
+                            {% elif postrecomm_list %}
+                            <div class="tab-pane active" id="post{{dept_id}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="p{{dept_id}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                    (function(){
+                                        window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                        var gd = document.getElementById('p{{dept_id}}');
+                                        var parent_width = $("#myTabContent").width();
+
+                                        Plotly.newPlot(gd, {
+                                            data: [{
+                                                "name": "Yes",
+                                                "type": "scatter",
+                                                "x": {{postrecomm_list.0|safe}},
+                                                "y": {{postrecomm_list.2}},
+                                                "hovertemplate": '<b>%{text}</b>',
+                                                text: {{postrecomm_list.4|safe}},
+                                                mode: 'lines+markers',
+                                                marker: {
+                                                    color: '#2ECC71',
+                                                    size: 8,
+                                                    symbol: 'circle'
+                                                },
+
+                                            },{
+                                                "name": "No",
+                                                "type": "bar",
+                                                "x": {{postrecomm_list.1|safe}},
+                                                "y": {{postrecomm_list.3}},
+                                                "hovertemplate": '<b>%{text}</b>',
+                                                text: {{postrecomm_list.5|safe}},
+                                                marker: {
+                                                    color: '#E74C3C'
+                                                },
+                                            }],
+
+                                            layout: {
+
+                                                "title": "Post Recommendation Responses - Time Series",
+                                                "width": parent_width-50,
+                                                "autosize": true,
+                                                "barmode": 'stack',
+                                                "xaxis": {
+
+                                                    "rangeslider": {},
+                                                    "rangeselector": {
+                                                        "buttons": [{
+                                                            "step": "day",
+                                                            "count": 1,
+                                                            "label": "1d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "day",
+                                                            "count": 7,
+                                                            "label": "7d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "day",
+                                                            "count": 14,
+                                                            "label": "14d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "all"
+                                                        }]
+                                                    }
+                                                },
+                                                "yaxis": {
+                                                    dtick: 1,
+                                                    range: [-1, 10]
+                                                },
+                                            },
+                                            useResizeHandler: true,
+                                            style: {width: "100%", height: "100%"},
+                                            config : {
+                                                    responsive: true
+                                            },
+                                        });
+
+                                   }());
+                                </script>
+                            </div>
+
+                            <!-- post_rec_pie tab -->
+                            {% elif postrecomm_pie %}
+                            <div class="tab-pane active" id="post_pie{{dept_id}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="pp{{dept_id}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                    var gd = document.getElementById('pp{{dept_id}}');
+                                    var parent_width = $("#myTabContent").width();
+
+                                    var data = [{
+                                      type: "pie",
+                                      values:  {{postrecomm_pie}},
+                                      labels:['I didn’t have enough time', 'I didn’t think it would help', 'I didn’t see the message'],
+                                      marker: {
+                                          colors: ['#0B5345', '#78281F', '#3498DB']
+                                      },
+                                      textinfo: "label+percent",
+                                      textposition: "outside",
+                                      automargin: true
+                                    }]
+
+                                    var layout = {
+                                      height: 400,
+                                      "width": parent_width-50,
+                                      margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+                                      showlegend: false
+                                      }
+
+                                    Plotly.newPlot(gd, data, layout);
+                                </script>
+                            </div>
+
+                            <!-- post_rec_sum tab -->
+                            {% elif postrecomm_sum %}
+                            <div class="tab-pane active" id="post_sum{{dept_id}}" role="tabpanel">
+                                <div id="ps{{dept_id}}" style="width: 100%; height: 100%;"
+                                     class="plotly-graph-div"></div>
+                                <script type="text/javascript">
+                                                (function(){
+
+                                                    var gd = document.getElementById('ps{{dept_id}}')
+                                                    var parent_width = $("#myTabContent").width()
+
+                                                    Plotly.newPlot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#0B5345", "width": 3},
+                                                            "name": "I didn’t have enough time",
+                                                            "type": "scatter",
+                                                            "x": {{postrecomm_sum.1|safe}},
+                                                            "y": {{postrecomm_sum.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#0B5345',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#78281F", "width": 3},
+                                                            "name": "I didn’t think it would help",
+                                                            "type": "scatter",
+                                                            "x": {{postrecomm_sum.3|safe}},
+                                                            "y": {{postrecomm_sum.2}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#78281F',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#3498DB", "width": 3},
+                                                            "name": "I didn’t see the message",
+                                                            "type": "scatter",
+                                                            "x": {{postrecomm_sum.5|safe}},
+                                                            "y": {{postrecomm_sum.4}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#3498DB',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        }],
+
+                                                        layout: {
+                                                            "title": "Post recommendation responses - cumulative",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                        }]
+                                                                    }
+                                                                },
+                                                                "yaxis": {
+                                                                    "title": "Count",
+                                                                    dtick: 1,
+                                                                    },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+                                </script>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="footer">
+    <div class="container footer-row">
+        <hr>
+        <div class="footer-right-col">
+            <div class="footer-info">
+                <div class="copyright-text">
+                    <small>Copyright © 2021 University of Virginia</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    var a_href = "";
+    $(document).on('submit',function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data:{
+                    select:$("#select").val(),
+                    id:a_href,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+
+            success: function (response) {
+                $(response.id).html(response.p);
+                },
+            });
+    })
+</script>
+
+
+</body>
+</html>

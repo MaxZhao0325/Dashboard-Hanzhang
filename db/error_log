@@ -1,0 +1,467 @@
+[Wed Sep 08 03:23:28.407360 2021] [ssl:warn] [pid 1658:tid 139764053633920] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 03:23:28.530204 2021] [ssl:warn] [pid 1659:tid 139764053633920] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 03:23:28.530955 2021] [mpm_event:notice] [pid 1659:tid 139764053633920] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 03:23:28.530980 2021] [core:notice] [pid 1659:tid 139764053633920] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 04:13:28.282241 2021] [mpm_event:notice] [pid 1659:tid 139764053633920] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 04:13:28.707940 2021] [ssl:warn] [pid 4425:tid 139878562065280] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:13:28.708332 2021] [ssl:warn] [pid 4425:tid 139878562065280] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:13:28.718348 2021] [ssl:warn] [pid 4426:tid 139878562065280] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:13:28.718708 2021] [ssl:warn] [pid 4426:tid 139878562065280] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:13:28.719745 2021] [mpm_event:notice] [pid 4426:tid 139878562065280] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 04:13:28.719781 2021] [core:notice] [pid 4426:tid 139878562065280] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 04:13:52.590376 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866] mod_wsgi (pid=4429): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:13:52.590456 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866] mod_wsgi (pid=4429): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:13:52.592704 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866] Traceback (most recent call last):
+[Wed Sep 08 04:13:52.592759 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:13:52.592768 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]     application = get_wsgi_application()
+[Wed Sep 08 04:13:52.592779 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:13:52.592785 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]     django.setup(set_prefix=False)
+[Wed Sep 08 04:13:52.592794 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:13:52.592799 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:13:52.592808 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+[Wed Sep 08 04:13:52.592813 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]     app_config = AppConfig.create(entry)
+[Wed Sep 08 04:13:52.592822 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/config.py", line 224, in create
+[Wed Sep 08 04:13:52.592828 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]     import_module(entry)
+[Wed Sep 08 04:13:52.592848 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "/opt/bitnami/python/lib/python3.8/importlib/__init__.py", line 127, in import_module
+[Wed Sep 08 04:13:52.592854 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]     return _bootstrap._gcd_import(name[level:], package, level)
+[Wed Sep 08 04:13:52.592863 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+[Wed Sep 08 04:13:52.592871 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[Wed Sep 08 04:13:52.592879 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866]   File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+[Wed Sep 08 04:13:52.592910 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 64.99.226.97:53866] ModuleNotFoundError: No module named 'allauth'
+[Wed Sep 08 04:13:57.486085 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472] mod_wsgi (pid=4429): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:13:57.487297 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472] mod_wsgi (pid=4429): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:13:57.487431 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472] Traceback (most recent call last):
+[Wed Sep 08 04:13:57.487475 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:13:57.487486 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]     application = get_wsgi_application()
+[Wed Sep 08 04:13:57.487495 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:13:57.487501 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]     django.setup(set_prefix=False)
+[Wed Sep 08 04:13:57.487510 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:13:57.487515 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:13:57.487524 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:13:57.487529 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:13:57.487547 2021] [wsgi:error] [pid 4429:tid 139878407493376] [remote 64.99.226.97:52472] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:18:24.601728 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728] mod_wsgi (pid=4429): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:18:24.601790 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728] mod_wsgi (pid=4429): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:18:24.601904 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728] Traceback (most recent call last):
+[Wed Sep 08 04:18:24.601944 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:18:24.601952 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]     application = get_wsgi_application()
+[Wed Sep 08 04:18:24.601972 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:18:24.601978 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]     django.setup(set_prefix=False)
+[Wed Sep 08 04:18:24.601986 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:18:24.601992 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:18:24.602000 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:18:24.602005 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:18:24.602023 2021] [wsgi:error] [pid 4429:tid 139878508205824] [remote 216.21.170.197:60728] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:30:01.361101 2021] [mpm_event:notice] [pid 4426:tid 139878562065280] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 04:30:01.996988 2021] [ssl:warn] [pid 5219:tid 140375855041408] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:30:01.997407 2021] [ssl:warn] [pid 5219:tid 140375855041408] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:30:02.035055 2021] [ssl:warn] [pid 5220:tid 140375855041408] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:30:02.035437 2021] [ssl:warn] [pid 5220:tid 140375855041408] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:30:02.037231 2021] [mpm_event:notice] [pid 5220:tid 140375855041408] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 04:30:02.037264 2021] [core:notice] [pid 5220:tid 140375855041408] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 04:30:24.794511 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684] mod_wsgi (pid=5222): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:24.794582 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684] mod_wsgi (pid=5222): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:24.795289 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684] Traceback (most recent call last):
+[Wed Sep 08 04:30:24.795340 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:30:24.795348 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]     application = get_wsgi_application()
+[Wed Sep 08 04:30:24.795358 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:30:24.795364 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]     django.setup(set_prefix=False)
+[Wed Sep 08 04:30:24.795373 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:30:24.795378 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:30:24.795403 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+[Wed Sep 08 04:30:24.795409 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]     app_config = AppConfig.create(entry)
+[Wed Sep 08 04:30:24.795418 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/config.py", line 224, in create
+[Wed Sep 08 04:30:24.795423 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]     import_module(entry)
+[Wed Sep 08 04:30:24.795431 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "/opt/bitnami/python/lib/python3.8/importlib/__init__.py", line 127, in import_module
+[Wed Sep 08 04:30:24.795436 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]     return _bootstrap._gcd_import(name[level:], package, level)
+[Wed Sep 08 04:30:24.795444 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+[Wed Sep 08 04:30:24.795453 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[Wed Sep 08 04:30:24.795462 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684]   File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+[Wed Sep 08 04:30:24.795481 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:60684] ModuleNotFoundError: No module named 'allauth'
+[Wed Sep 08 04:30:25.525883 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005] mod_wsgi (pid=5222): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:25.525949 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005] mod_wsgi (pid=5222): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:25.526070 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005] Traceback (most recent call last):
+[Wed Sep 08 04:30:25.526112 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:30:25.526120 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]     application = get_wsgi_application()
+[Wed Sep 08 04:30:25.526130 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:30:25.526135 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]     django.setup(set_prefix=False)
+[Wed Sep 08 04:30:25.526144 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:30:25.526150 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:30:25.526158 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:30:25.526163 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:30:25.526181 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:58005] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:30:28.216062 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115] mod_wsgi (pid=5222): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:28.216119 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115] mod_wsgi (pid=5222): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:28.216244 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115] Traceback (most recent call last):
+[Wed Sep 08 04:30:28.216285 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:30:28.216292 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]     application = get_wsgi_application()
+[Wed Sep 08 04:30:28.216302 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:30:28.216307 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]     django.setup(set_prefix=False)
+[Wed Sep 08 04:30:28.216316 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:30:28.216321 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:30:28.216329 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:30:28.216335 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:30:28.216352 2021] [wsgi:error] [pid 5222:tid 140375817967360] [remote 64.99.226.97:50115] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:30:28.872596 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986] mod_wsgi (pid=5222): Failed to exec Python script file '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:28.872647 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986] mod_wsgi (pid=5222): Exception occurred processing WSGI script '/opt/bitnami/projects/PROJECT/db/wsgi.py'.
+[Wed Sep 08 04:30:28.872759 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986] Traceback (most recent call last):
+[Wed Sep 08 04:30:28.872798 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]   File "/opt/bitnami/projects/PROJECT/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:30:28.872805 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]     application = get_wsgi_application()
+[Wed Sep 08 04:30:28.872815 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:30:28.872821 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]     django.setup(set_prefix=False)
+[Wed Sep 08 04:30:28.872829 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:30:28.872835 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:30:28.872843 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:30:28.872849 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:30:28.872866 2021] [wsgi:error] [pid 5222:tid 140375700469504] [remote 64.99.226.97:59986] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:35:58.517416 2021] [authz_core:error] [pid 5636:tid 140374987089664] [client 64.99.226.97:60677] AH01630: client denied by server configuration: /opt/bitnami/projects/PROJECT
+[Wed Sep 08 04:36:01.032834 2021] [authz_core:error] [pid 5224:tid 140374899160832] [client 64.99.226.97:61092] AH01630: client denied by server configuration: /opt/bitnami/projects/PROJECT
+[Wed Sep 08 04:36:08.135783 2021] [authz_core:error] [pid 5225:tid 140374865590016] [client 64.99.226.97:58930] AH01630: client denied by server configuration: /opt/bitnami/projects/PROJECT
+[Wed Sep 08 04:36:08.869030 2021] [authz_core:error] [pid 5225:tid 140375020660480] [client 205.213.114.68:49706] AH01630: client denied by server configuration: /opt/bitnami/projects/PROJECT, referer: https://www.google.com/
+[Wed Sep 08 04:36:18.138632 2021] [authz_core:error] [pid 5224:tid 140374873982720] [client 64.99.226.97:62396] AH01630: client denied by server configuration: /opt/bitnami/projects/PROJECT
+[Wed Sep 08 04:38:28.658205 2021] [mpm_event:notice] [pid 5220:tid 140375855041408] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 04:38:29.088621 2021] [ssl:warn] [pid 5902:tid 139766786050944] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:38:29.088997 2021] [ssl:warn] [pid 5902:tid 139766786050944] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:38:29.098731 2021] [ssl:warn] [pid 5903:tid 139766786050944] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:38:29.099083 2021] [ssl:warn] [pid 5903:tid 139766786050944] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:38:29.100111 2021] [mpm_event:notice] [pid 5903:tid 139766786050944] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 04:38:29.100134 2021] [core:notice] [pid 5903:tid 139766786050944] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 04:38:37.192797 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:38:37.192867 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:38:37.193583 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681] Traceback (most recent call last):
+[Wed Sep 08 04:38:37.193640 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:38:37.193651 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]     application = get_wsgi_application()
+[Wed Sep 08 04:38:37.193663 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:38:37.193670 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]     django.setup(set_prefix=False)
+[Wed Sep 08 04:38:37.193680 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:38:37.193686 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:38:37.193695 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+[Wed Sep 08 04:38:37.193702 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]     app_config = AppConfig.create(entry)
+[Wed Sep 08 04:38:37.193711 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/config.py", line 224, in create
+[Wed Sep 08 04:38:37.193727 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]     import_module(entry)
+[Wed Sep 08 04:38:37.193736 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "/opt/bitnami/python/lib/python3.8/importlib/__init__.py", line 127, in import_module
+[Wed Sep 08 04:38:37.193742 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]     return _bootstrap._gcd_import(name[level:], package, level)
+[Wed Sep 08 04:38:37.193751 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+[Wed Sep 08 04:38:37.193760 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[Wed Sep 08 04:38:37.193769 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681]   File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+[Wed Sep 08 04:38:37.193788 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:61681] ModuleNotFoundError: No module named 'allauth'
+[Wed Sep 08 04:38:38.339819 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:38:38.339878 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:38:38.340002 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085] Traceback (most recent call last):
+[Wed Sep 08 04:38:38.340044 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:38:38.340052 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]     application = get_wsgi_application()
+[Wed Sep 08 04:38:38.340063 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:38:38.340068 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]     django.setup(set_prefix=False)
+[Wed Sep 08 04:38:38.340077 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:38:38.340083 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:38:38.340092 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:38:38.340098 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:38:38.340116 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 64.99.226.97:52085] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:38:54.960011 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:38:54.960073 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:38:54.960189 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167] Traceback (most recent call last):
+[Wed Sep 08 04:38:54.960229 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:38:54.960247 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]     application = get_wsgi_application()
+[Wed Sep 08 04:38:54.960258 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:38:54.960265 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]     django.setup(set_prefix=False)
+[Wed Sep 08 04:38:54.960274 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:38:54.960279 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:38:54.960288 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:38:54.960294 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:38:54.960313 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:63167] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:40:30.671003 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:40:30.671068 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:40:30.671186 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948] Traceback (most recent call last):
+[Wed Sep 08 04:40:30.671227 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:40:30.671235 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]     application = get_wsgi_application()
+[Wed Sep 08 04:40:30.671246 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:40:30.671252 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]     django.setup(set_prefix=False)
+[Wed Sep 08 04:40:30.671262 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:40:30.671268 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:40:30.671278 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:40:30.671284 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:40:30.671303 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 23.251.102.74:52948] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:42:51.863006 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:42:51.863079 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:42:51.863197 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201] Traceback (most recent call last):
+[Wed Sep 08 04:42:51.863237 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:42:51.863255 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]     application = get_wsgi_application()
+[Wed Sep 08 04:42:51.863266 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:42:51.863272 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]     django.setup(set_prefix=False)
+[Wed Sep 08 04:42:51.863282 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:42:51.863287 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:42:51.863301 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:42:51.863307 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:42:51.863326 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 64.99.226.97:53201] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:52:27.465932 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:52:27.466005 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:52:27.466128 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822] Traceback (most recent call last):
+[Wed Sep 08 04:52:27.466171 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:52:27.466180 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]     application = get_wsgi_application()
+[Wed Sep 08 04:52:27.466192 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:52:27.466199 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]     django.setup(set_prefix=False)
+[Wed Sep 08 04:52:27.466209 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:52:27.466216 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:52:27.466226 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:52:27.466233 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:52:27.466253 2021] [wsgi:error] [pid 5905:tid 139766748976896] [remote 199.19.224.165:59822] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:54:26.484918 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630] mod_wsgi (pid=5905): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:54:26.484988 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630] mod_wsgi (pid=5905): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 04:54:26.485107 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630] Traceback (most recent call last):
+[Wed Sep 08 04:54:26.485159 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 04:54:26.485167 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]     application = get_wsgi_application()
+[Wed Sep 08 04:54:26.485177 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 04:54:26.485183 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]     django.setup(set_prefix=False)
+[Wed Sep 08 04:54:26.485193 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 04:54:26.485198 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 04:54:26.485207 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 04:54:26.485212 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 04:54:26.485231 2021] [wsgi:error] [pid 5905:tid 139766665049856] [remote 89.248.173.131:48630] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 04:56:02.059443 2021] [mpm_event:notice] [pid 5903:tid 139766786050944] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 04:56:02.457439 2021] [ssl:warn] [pid 6664:tid 139991862528896] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:56:02.457821 2021] [ssl:warn] [pid 6664:tid 139991862528896] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:56:02.468248 2021] [ssl:warn] [pid 6665:tid 139991862528896] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:56:02.469313 2021] [ssl:warn] [pid 6665:tid 139991862528896] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:56:02.470669 2021] [mpm_event:notice] [pid 6665:tid 139991862528896] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 04:56:02.470701 2021] [core:notice] [pid 6665:tid 139991862528896] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 04:56:09.676981 2021] [authz_core:error] [pid 6671:tid 139991028147968] [client 64.99.226.97:56518] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:56:20.630793 2021] [authz_core:error] [pid 6671:tid 139990877062912] [client 64.99.226.97:51509] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:20.949965 2021] [authz_core:error] [pid 7087:tid 139990994577152] [client 64.99.226.97:63215] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:21.826184 2021] [authz_core:error] [pid 7087:tid 139991002969856] [client 64.99.226.97:63215] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:25.674070 2021] [mpm_event:notice] [pid 6665:tid 139991862528896] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 04:58:26.104312 2021] [ssl:warn] [pid 7314:tid 140338470280064] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:58:26.104732 2021] [ssl:warn] [pid 7314:tid 140338470280064] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:58:26.114645 2021] [ssl:warn] [pid 7315:tid 140338470280064] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:58:26.114995 2021] [ssl:warn] [pid 7315:tid 140338470280064] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 04:58:26.116182 2021] [mpm_event:notice] [pid 7315:tid 140338470280064] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 04:58:26.116206 2021] [core:notice] [pid 7315:tid 140338470280064] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 04:58:28.393245 2021] [authz_core:error] [pid 7320:tid 140337460774656] [client 64.99.226.97:53000] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:29.001826 2021] [authz_core:error] [pid 7320:tid 140337402025728] [client 64.99.226.97:53000] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:29.241626 2021] [authz_core:error] [pid 7320:tid 140337502738176] [client 64.99.226.97:53000] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:29.411610 2021] [authz_core:error] [pid 7320:tid 140337494345472] [client 64.99.226.97:53000] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:29.571371 2021] [authz_core:error] [pid 7320:tid 140337418811136] [client 64.99.226.97:53000] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:29.736625 2021] [authz_core:error] [pid 7320:tid 140337410418432] [client 64.99.226.97:53000] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 04:58:51.375459 2021] [mpm_event:notice] [pid 7315:tid 140338470280064] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 05:00:06.990080 2021] [ssl:warn] [pid 1273:tid 139955762318208] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:00:06.992047 2021] [ssl:warn] [pid 1273:tid 139955762318208] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:00:07.006897 2021] [ssl:warn] [pid 1283:tid 139955762318208] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:00:07.007256 2021] [ssl:warn] [pid 1283:tid 139955762318208] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:00:07.009365 2021] [mpm_event:notice] [pid 1283:tid 139955762318208] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 05:00:07.009399 2021] [core:notice] [pid 1283:tid 139955762318208] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 05:01:13.034406 2021] [authz_core:error] [pid 1288:tid 139954927937280] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:13.848963 2021] [authz_core:error] [pid 1288:tid 139954696959744] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.007071 2021] [authz_core:error] [pid 1288:tid 139954919544576] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.182514 2021] [authz_core:error] [pid 1288:tid 139954747315968] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.332113 2021] [authz_core:error] [pid 1288:tid 139954722137856] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.496984 2021] [authz_core:error] [pid 1288:tid 139954705352448] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.655894 2021] [authz_core:error] [pid 1288:tid 139954797672192] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.814228 2021] [authz_core:error] [pid 1288:tid 139954894366464] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:14.965226 2021] [authz_core:error] [pid 1288:tid 139954902759168] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:01:15.130837 2021] [authz_core:error] [pid 1288:tid 139954738923264] [client 64.99.226.97:55099] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:03:09.691814 2021] [authz_core:error] [pid 1839:tid 139954877581056] [client 64.99.226.97:54171] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:03:14.773249 2021] [authz_core:error] [pid 1288:tid 139954877581056] [client 64.99.226.97:60013] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:03:35.036703 2021] [authz_core:error] [pid 1839:tid 139954797672192] [client 64.99.226.97:52415] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:03:38.393319 2021] [authz_core:error] [pid 1289:tid 139954789279488] [client 64.99.226.97:53159] AH01630: client denied by server configuration: /opt/bitnami/projects/sample
+[Wed Sep 08 05:03:57.032116 2021] [mpm_event:notice] [pid 1283:tid 139955762318208] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 05:03:57.456752 2021] [ssl:warn] [pid 2085:tid 140135223749504] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:03:57.457127 2021] [ssl:warn] [pid 2085:tid 140135223749504] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:03:57.467086 2021] [ssl:warn] [pid 2086:tid 140135223749504] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:03:57.467450 2021] [ssl:warn] [pid 2086:tid 140135223749504] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:03:57.469266 2021] [mpm_event:notice] [pid 2086:tid 140135223749504] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 05:03:57.469298 2021] [core:notice] [pid 2086:tid 140135223749504] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 05:04:03.665678 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:04:03.665752 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:04:03.675468 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372] Traceback (most recent call last):
+[Wed Sep 08 05:04:03.675541 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:04:03.675552 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]     application = get_wsgi_application()
+[Wed Sep 08 05:04:03.675563 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:04:03.675569 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]     django.setup(set_prefix=False)
+[Wed Sep 08 05:04:03.675579 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:04:03.675593 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:04:03.675602 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+[Wed Sep 08 05:04:03.675607 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]     app_config = AppConfig.create(entry)
+[Wed Sep 08 05:04:03.675615 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/config.py", line 224, in create
+[Wed Sep 08 05:04:03.675620 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]     import_module(entry)
+[Wed Sep 08 05:04:03.675628 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "/opt/bitnami/python/lib/python3.8/importlib/__init__.py", line 127, in import_module
+[Wed Sep 08 05:04:03.675633 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]     return _bootstrap._gcd_import(name[level:], package, level)
+[Wed Sep 08 05:04:03.675641 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+[Wed Sep 08 05:04:03.675649 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[Wed Sep 08 05:04:03.675658 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372]   File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+[Wed Sep 08 05:04:03.675679 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:62372] ModuleNotFoundError: No module named 'allauth'
+[Wed Sep 08 05:05:27.822275 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:05:27.822341 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:05:27.822459 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966] Traceback (most recent call last):
+[Wed Sep 08 05:05:27.822507 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:05:27.822515 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]     application = get_wsgi_application()
+[Wed Sep 08 05:05:27.822526 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:05:27.822532 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]     django.setup(set_prefix=False)
+[Wed Sep 08 05:05:27.822541 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:05:27.822547 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:05:27.822555 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:05:27.822561 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:05:27.822580 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 162.142.125.44:34966] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:05:27.899237 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:05:27.899297 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:05:27.899420 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038] Traceback (most recent call last):
+[Wed Sep 08 05:05:27.899458 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:05:27.899465 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]     application = get_wsgi_application()
+[Wed Sep 08 05:05:27.899475 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:05:27.899481 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]     django.setup(set_prefix=False)
+[Wed Sep 08 05:05:27.899489 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:05:27.899494 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:05:27.899502 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:05:27.899508 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:05:27.899524 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 162.142.125.44:39038] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:07:51.523341 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:07:51.523415 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:07:51.523553 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736] Traceback (most recent call last):
+[Wed Sep 08 05:07:51.523603 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:07:51.523611 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]     application = get_wsgi_application()
+[Wed Sep 08 05:07:51.523632 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:07:51.523638 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]     django.setup(set_prefix=False)
+[Wed Sep 08 05:07:51.523646 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:07:51.523652 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:07:51.523660 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:07:51.523666 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:07:51.523696 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:52736] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:07:54.156490 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:07:54.156551 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:07:54.156664 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533] Traceback (most recent call last):
+[Wed Sep 08 05:07:54.156703 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:07:54.156711 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]     application = get_wsgi_application()
+[Wed Sep 08 05:07:54.156720 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:07:54.156726 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]     django.setup(set_prefix=False)
+[Wed Sep 08 05:07:54.156734 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:07:54.156739 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:07:54.156747 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:07:54.156753 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:07:54.156770 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 64.99.226.97:52533] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:08:49.858749 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:08:49.858809 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:08:49.858923 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284] Traceback (most recent call last):
+[Wed Sep 08 05:08:49.858962 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:08:49.858969 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]     application = get_wsgi_application()
+[Wed Sep 08 05:08:49.858979 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:08:49.858985 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]     django.setup(set_prefix=False)
+[Wed Sep 08 05:08:49.858994 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:08:49.858999 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:08:49.859008 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:08:49.859013 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:08:49.859043 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 209.17.96.82:56284] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:09:41.858151 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:09:41.858214 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:09:41.858329 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872] Traceback (most recent call last):
+[Wed Sep 08 05:09:41.858369 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:09:41.858377 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]     application = get_wsgi_application()
+[Wed Sep 08 05:09:41.858387 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:09:41.858393 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]     django.setup(set_prefix=False)
+[Wed Sep 08 05:09:41.858402 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:09:41.858407 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:09:41.858416 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:09:41.858421 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:09:41.858439 2021] [wsgi:error] [pid 2090:tid 140135169890048] [remote 128.1.248.42:34872] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:15:44.337440 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324] mod_wsgi (pid=2090): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:15:44.337501 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324] mod_wsgi (pid=2090): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:15:44.337621 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324] Traceback (most recent call last):
+[Wed Sep 08 05:15:44.337661 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:15:44.337669 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]     application = get_wsgi_application()
+[Wed Sep 08 05:15:44.337679 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:15:44.337685 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]     django.setup(set_prefix=False)
+[Wed Sep 08 05:15:44.337694 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:15:44.337699 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:15:44.337708 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:15:44.337721 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:15:44.337740 2021] [wsgi:error] [pid 2090:tid 140135069177600] [remote 64.99.226.97:57324] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:30:33.980125 2021] [mpm_event:notice] [pid 2086:tid 140135223749504] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 05:30:34.410704 2021] [ssl:warn] [pid 3210:tid 140318287383424] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:30:34.411078 2021] [ssl:warn] [pid 3210:tid 140318287383424] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:30:34.421581 2021] [ssl:warn] [pid 3211:tid 140318287383424] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:30:34.421919 2021] [ssl:warn] [pid 3211:tid 140318287383424] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:30:34.422963 2021] [mpm_event:notice] [pid 3211:tid 140318287383424] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 05:30:34.422988 2021] [core:notice] [pid 3211:tid 140318287383424] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 05:30:49.450642 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678] mod_wsgi (pid=3214): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:30:49.450722 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678] mod_wsgi (pid=3214): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:30:49.451438 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678] Traceback (most recent call last):
+[Wed Sep 08 05:30:49.451492 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:30:49.451502 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]     application = get_wsgi_application()
+[Wed Sep 08 05:30:49.451513 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:30:49.451519 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]     django.setup(set_prefix=False)
+[Wed Sep 08 05:30:49.451528 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:30:49.451534 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:30:49.451542 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 91, in populate
+[Wed Sep 08 05:30:49.451548 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]     app_config = AppConfig.create(entry)
+[Wed Sep 08 05:30:49.451557 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/config.py", line 224, in create
+[Wed Sep 08 05:30:49.451562 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]     import_module(entry)
+[Wed Sep 08 05:30:49.451571 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "/opt/bitnami/python/lib/python3.8/importlib/__init__.py", line 127, in import_module
+[Wed Sep 08 05:30:49.451576 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]     return _bootstrap._gcd_import(name[level:], package, level)
+[Wed Sep 08 05:30:49.451596 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+[Wed Sep 08 05:30:49.451605 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[Wed Sep 08 05:30:49.451614 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678]   File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+[Wed Sep 08 05:30:49.451633 2021] [wsgi:error] [pid 3214:tid 140318233523968] [remote 64.99.226.97:52678] ModuleNotFoundError: No module named 'allauth'
+[Wed Sep 08 05:45:43.096311 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900] mod_wsgi (pid=3214): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:45:43.096378 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900] mod_wsgi (pid=3214): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:45:43.096497 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900] Traceback (most recent call last):
+[Wed Sep 08 05:45:43.096539 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:45:43.096555 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]     application = get_wsgi_application()
+[Wed Sep 08 05:45:43.096566 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:45:43.096572 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]     django.setup(set_prefix=False)
+[Wed Sep 08 05:45:43.096581 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:45:43.096587 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:45:43.096596 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 83, in populate
+[Wed Sep 08 05:45:43.096602 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900]     raise RuntimeError("populate() isn't reentrant")
+[Wed Sep 08 05:45:43.096620 2021] [wsgi:error] [pid 3214:tid 140318250309376] [remote 64.99.226.97:56900] RuntimeError: populate() isn't reentrant
+[Wed Sep 08 05:50:47.639199 2021] [mpm_event:notice] [pid 3211:tid 140318287383424] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 05:50:48.070956 2021] [ssl:warn] [pid 4296:tid 140380436102016] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:50:48.071333 2021] [ssl:warn] [pid 4296:tid 140380436102016] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:50:48.081597 2021] [ssl:warn] [pid 4297:tid 140380436102016] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:50:48.081937 2021] [ssl:warn] [pid 4297:tid 140380436102016] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:50:48.082934 2021] [mpm_event:notice] [pid 4297:tid 140380436102016] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 05:50:48.082957 2021] [core:notice] [pid 4297:tid 140380436102016] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 05:51:03.765018 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101] mod_wsgi (pid=4300): Failed to exec Python script file '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:51:03.765101 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101] mod_wsgi (pid=4300): Exception occurred processing WSGI script '/opt/bitnami/projects/db/db/wsgi.py'.
+[Wed Sep 08 05:51:03.765824 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101] Traceback (most recent call last):
+[Wed Sep 08 05:51:03.765879 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "/opt/bitnami/projects/db/db/wsgi.py", line 13, in <module>
+[Wed Sep 08 05:51:03.765887 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]     application = get_wsgi_application()
+[Wed Sep 08 05:51:03.765897 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+[Wed Sep 08 05:51:03.765903 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]     django.setup(set_prefix=False)
+[Wed Sep 08 05:51:03.765911 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/__init__.py", line 24, in setup
+[Wed Sep 08 05:51:03.765916 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]     apps.populate(settings.INSTALLED_APPS)
+[Wed Sep 08 05:51:03.765924 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/registry.py", line 92, in populate
+[Wed Sep 08 05:51:03.765929 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]     app_config = AppConfig.create(entry)
+[Wed Sep 08 05:51:03.765937 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "/opt/bitnami/python/lib/python3.8/site-packages/django/apps/config.py", line 224, in create
+[Wed Sep 08 05:51:03.765942 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]     import_module(entry)
+[Wed Sep 08 05:51:03.765949 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "/opt/bitnami/python/lib/python3.8/importlib/__init__.py", line 127, in import_module
+[Wed Sep 08 05:51:03.765954 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]     return _bootstrap._gcd_import(name[level:], package, level)
+[Wed Sep 08 05:51:03.765962 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+[Wed Sep 08 05:51:03.765970 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[Wed Sep 08 05:51:03.765979 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101]   File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+[Wed Sep 08 05:51:03.765997 2021] [wsgi:error] [pid 4300:tid 140380382242560] [remote 64.99.226.97:56101] ModuleNotFoundError: No module named 'allauth'
+[Wed Sep 08 05:56:09.817383 2021] [mpm_event:notice] [pid 4297:tid 140380436102016] AH00491: caught SIGTERM, shutting down
+[Wed Sep 08 05:56:10.248704 2021] [ssl:warn] [pid 4981:tid 140066740239232] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:56:10.249080 2021] [ssl:warn] [pid 4981:tid 140066740239232] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:56:10.259755 2021] [ssl:warn] [pid 4982:tid 140066740239232] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:56:10.260133 2021] [ssl:warn] [pid 4982:tid 140066740239232] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 05:56:10.261152 2021] [mpm_event:notice] [pid 4982:tid 140066740239232] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 05:56:10.261175 2021] [core:notice] [pid 4982:tid 140066740239232] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 06:25:15.928629 2021] [mpm_event:notice] [pid 4982:tid 140066740239232] AH00491: caught SIGTERM, shutting down
+Exception ignored in: <function Local.__del__ at 0x7f63ca3feb80>
+Traceback (most recent call last):
+  File "/opt/bitnami/python/lib/python3.8/site-packages/asgiref/local.py", line 96, in __del__
+NameError: name 'TypeError' is not defined
+[Wed Sep 08 06:25:16.359840 2021] [ssl:warn] [pid 5953:tid 140047784016768] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:25:16.360218 2021] [ssl:warn] [pid 5953:tid 140047784016768] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:25:16.370317 2021] [ssl:warn] [pid 5954:tid 140047784016768] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:25:16.370680 2021] [ssl:warn] [pid 5954:tid 140047784016768] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:25:16.371709 2021] [mpm_event:notice] [pid 5954:tid 140047784016768] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 06:25:16.371739 2021] [core:notice] [pid 5954:tid 140047784016768] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'
+[Wed Sep 08 06:30:18.419877 2021] [mpm_event:notice] [pid 5954:tid 140047784016768] AH00491: caught SIGTERM, shutting down
+Exception ignored in: <function Local.__del__ at 0x7f5f605eeb80>
+Traceback (most recent call last):
+  File "/opt/bitnami/python/lib/python3.8/site-packages/asgiref/local.py", line 96, in __del__
+NameError: name 'TypeError' is not defined
+[Wed Sep 08 06:30:18.850097 2021] [ssl:warn] [pid 6587:tid 139981910817664] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:30:18.850476 2021] [ssl:warn] [pid 6587:tid 139981910817664] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:30:18.860824 2021] [ssl:warn] [pid 6588:tid 139981910817664] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:30:18.861171 2021] [ssl:warn] [pid 6588:tid 139981910817664] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Wed Sep 08 06:30:18.862219 2021] [mpm_event:notice] [pid 6588:tid 139981910817664] AH00489: Apache/2.4.48 (Unix) OpenSSL/1.1.1d mod_wsgi/4.7.1 Python/3.8 configured -- resuming normal operations
+[Wed Sep 08 06:30:18.862243 2021] [core:notice] [pid 6588:tid 139981910817664] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf'

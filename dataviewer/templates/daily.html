@@ -1,0 +1,973 @@
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMA</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css'%}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+<body>
+<div class="container-xxl">
+    <section id="header">
+        <div class="container">
+            <h1 class="rainbow-text" style="position: absolute;
+                                                    top: 15px;
+                                                    left: 30px;
+                                                    font-size: 50px;
+                                                    background: -webkit-linear-gradient(#1B4F72, #2980B9);
+                                                    -webkit-background-clip: text;
+                                                    -webkit-text-fill-color: transparent;
+                ">PCR</h1>
+            <nav class="drown">
+                <ul>
+                    <li><a href="/dataviewer/tracking">Tracking</a></li>
+                    <li><a href="/dataviewer/daily">Daily</a></li>
+                    <li><a href="/dataviewer/weekly">Weekly</a></li>
+                    <!--                    <li><a href="/dataviewer/feedback">Feedback</a></li>-->
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<div class="loader-wrapper">
+    <p>loading....</p>
+</div>
+<script>
+    $(window).on("load",function(){
+        $(".loader-wrapper").fadeOut("slow");
+    });
+
+
+
+
+</script>
+
+<nav class="side" id="sideNav">
+    <ul>
+        <!--        {% if user.is_authenticated %}-->
+        <!--        <li><p class="lead">Hi {{ user.username }}!</p><li>-->
+        <li><a href="/">HOME</a></li>
+        <li><a href="/dataviewer/tracking">Tracking table</a>
+        <li>
+        <li><a href="/dataviewer/daily">Daily table</a>
+        <li>
+        <li><a href="/dataviewer/weekly">Weekly table</a>
+        <li>
+        <li><a href="/dataviewer/feedback">Feedback table</a>
+        <li>
+            <hr class="my-4">
+            <!--        <form method="post" action="/accounts/logout/">-->
+            <!--            {% csrf_token %}-->
+            <!--          <button style="text-decoration: none" class="btn btn btn-warning btn-lg btn-block" type="submit" onclick="return window.confirm('You are going to Sign out and back to the home page');" >Sign Out</button>-->
+            <!--        </form>-->
+            <!--        {% else %}-->
+            <!--            <script type="text/javascript">-->
+            <!--                var msg = confirm("Please login");-->
+            <!--                if (msg) {-->
+            <!--                    window.location.href = "/";-->
+            <!--                }-->
+            <!--            </script>-->
+            <!--        {% endif %}-->
+
+    </ul>
+</nav>
+<img src="{% static 'images/menu.png'%}" id="menuBtn">
+
+<section id="features">
+    <div class="feature-row">
+        <div class="col-md-2 mb-3" style="padding:20px;">
+            <ul class="nav nav-pills flex-column" id="myTab" role="tablist" style="padding:20px;">
+                <li class="nav-item" style="padding:20px;">
+                    <a class="nav-link active" data-toggle="tab" href="#note" role="tab" aria-selected="true">Daily
+                        Table Instruction</a>
+                </li>
+                {% for dep_id in daily %}
+                <li class="nav-item" style="padding:20px;">
+                    <a class="nav-link" data-toggle="tab" href="#tab{{dep_id.0}}" role="tab" aria-selected="true">{{dep_id.0}}</a>
+                </li>
+                {% endfor%}
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane active" id="note" role="tabpanel">
+                    <div class="card text-center" style="height: 650px; margin: 20px; ">
+                        <br>
+                        <h1>Daily table instruction</h1>
+                        <hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="list-group" id="list-tab" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-Evening-list"
+                                           data-toggle="list" href="#Evening" role="tab" aria-controls="Evening">Evening
+                                            messages</a>
+                                        <a class="list-group-item list-group-item-action" id="list-goal-list"
+                                           data-toggle="list" href="#goal" role="tab"
+                                           aria-controls="goal">Daily intention goal follow-up</a>
+                                        <a class="list-group-item list-group-item-action" id="list-rating-list"
+                                           data-toggle="list" href="#rating" role="tab" aria-controls="rating">Feedback
+                                            on recommendations</a>
+                                        <a class="list-group-item list-group-item-action" id="list-ratingPie-list"
+                                           data-toggle="list" href="#ratingPie" role="tab" aria-controls="ratingPie">Feedback
+                                            on recommendations - pie</a>
+                                        <a class="list-group-item list-group-item-action" id="list-ratingSum-list"
+                                           data-toggle="list" href="#ratingSum" role="tab" aria-controls="ratingSum">Feedback
+                                            on recommendations - cumulative</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Helpfulness-list"
+                                           data-toggle="list" href="#Helpfulness" role="tab"
+                                           aria-controls="Helpfulness">Helpfulness</a>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="Evening" role="tabpanel"
+                                             aria-labelledby="list-profile-list" style="text-align:left;">
+                                            The multiple line graphs show your daily emotional states, on a scale from 0
+                                            to 10, during the baseline and implementation period.
+                                            <br>· Stressfulness
+                                            <br> &nbsp&nbsp&nbsp&nbsp -“On a scale from 0-10, how stressful was your day
+                                            today?”
+                                            0, not stressful at all; 10 very stressful
+                                            <br>· Loneliness
+                                            <br> &nbsp&nbsp&nbsp&nbsp -“On a scale from 0-10, how lonely did you feel
+                                            today?”
+                                            0, not lonely at all; 10, very lonely
+                                            <br>· Self-rated physical health
+                                            <br> &nbsp&nbsp&nbsp&nbsp -“On a scale from 0-10, how would you say your
+                                            physical health is
+                                            today?”
+                                            0, poor; 10, excellent
+                                            <br>· Self-rated mental health
+                                            <br> &nbsp&nbsp&nbsp&nbsp -“On a scale from 0-10, how down or “blue” did you
+                                            feel today?”
+                                            0, not at all; 10, very down or “blue”
+                                            <br>· Unpleasant Interactions
+                                            <br> &nbsp&nbsp&nbsp&nbsp -“About how many unpleasant interactions did you
+                                            have with your family
+                                            member today?”
+                                            <br>· Pleasant interactions
+                                            <br> &nbsp&nbsp&nbsp&nbsp -“About how many pleasant interactions did you
+                                            have with your family
+                                            member today?”
+                                        </div>
+                                        <div class="tab-pane fade" id="goal" role="tabpanel"
+                                             aria-labelledby="list-goal-list" style="text-align:left;">
+                                            The bar chart shows if you met self-care goal you had set in the morning.
+                                            <br>·
+                                            <text style="color:#2ECC71">Yes (green)</text>
+                                            : show “all good”
+                                            <br>·
+                                            <text style="color:#E74C3C">No (red)</text>
+                                            : show the reason for not meeting the goal.
+                                        </div>
+                                        <div class="tab-pane fade" id="rating" role="tabpanel"
+                                             aria-labelledby="list-rating-list" style="text-align:left;">The bar chart
+                                            shows whether you followed the stress management tips that you received
+                                            during the day.
+                                            <br>·
+                                            <text style="color:#2ECC71">Yes (green)</text>
+                                            : show which stress management
+                                            strategies you completed during the day
+                                            <br>·
+                                            <text style="color:#E74C3C">No (red)</text>
+                                            : show the reason for not following
+                                            the activity.
+                                        </div>
+                                        <div class="tab-pane fade" id="ratingPie" role="tabpanel"
+                                             aria-labelledby="list-ratingPie-list" style="text-align:left;">The two pie
+                                            graphs show the proportions of stress management tips performed during the
+                                            day (bright one) and of the reasons for not following the activity (dark
+                                            one).
+                                        </div>
+                                        <div class="tab-pane fade" id="ratingSum" role="tabpanel"
+                                             aria-labelledby="list-ratingSum-list" style="text-align:left;">The
+                                            cumulative chart shows the proportion of collected proportions of stress
+                                            management tips performed during the
+                                            day (bright one) and of the reasons for not following the activity (dark
+                                            one), which are illustrated in the “post recommendation responses” section.
+                                        </div>
+                                        <div class="tab-pane fade" id="Helpfulness" role="tabpanel"
+                                             aria-labelledby="list-Helpfulness-list" style="text-align:left;">The line
+                                            graph shows which stress management tip(s) helped most and how much they
+                                            helped during the day on a scale from 0 to 10.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% for dep_id in daily %}
+                <div class="tab-pane fade" id="tab{{dep_id.0}}" role="tabpanel" style="padding:20px;">
+                    <div class="card text-center" style="width:100%; height: 650px; margin: 20px; ">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding:20px;">
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link active" data-toggle="pill" href="#evening{{dep_id.0}}" role="tab">Evening
+                                    Messages</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#goal{{dep_id.0}}" role="tab">Daily
+                                    intention goal follow-up</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#about{{dep_id.0}}" role="tab">
+                                    Feedback on recommendations</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#about_pie{{dep_id.0}}" role="tab">
+                                    Feedback on recommendations - pie</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#about_sum{{dep_id.0}}" role="tab">
+                                    Feedback on recommendations - cumulative</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#help{{dep_id.0}}"
+                                   role="tab">Helpfulness</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#reactive{{dep_id.0}}"
+                                   role="tab">Reactivity</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#reactive-pie{{dep_id.0}}"
+                                   role="tab">Reactivity - pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="evening{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="e{{dep_id.0}}" style="width: 100%; height: 100%;"
+                                     class="plotly-graph-div"></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('e{{dep_id.0}}')
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Stressfulness rating",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1.0.0|safe}},
+                                                            "y": {{dep_id.1.0.1}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 6,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#E74C3C", "width": 3},
+                                                            "name": "Loneliness rating",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1.1.0|safe}},
+                                                            "y": {{dep_id.1.1.1}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#E74C3C',
+                                                                size: 6,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#3498DB", "width": 3},
+                                                            "name": "Self-rated physical health",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1.2.0|safe}},
+                                                            "y": {{dep_id.1.2.1}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#3498DB',
+                                                                size: 6,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#F4D03F", "width": 3},
+                                                            "name": "Self-rated mental health",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1.3.0|safe}},
+                                                            "y": {{dep_id.1.3.1}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#F4D03F',
+                                                                size: 6,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#7B7D7D", "width": 3},
+                                                            "name": "Unpleasant interactions",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1.4.0|safe}},
+                                                            "y": {{dep_id.1.4.1}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#7B7D7D',
+                                                                size: 6,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#9B59B6", "width": 3},
+                                                            "name": "Pleasant interactions",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.1.5.0|safe}},
+                                                            "y": {{dep_id.1.5.1}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#9B59B6',
+                                                                size: 6,
+                                                                symbol: 'circle'
+                                                            }
+                                                        }],
+
+                                                        layout: {
+                                                            "title": "Evening rating",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                        }]
+                                                                    }
+                                                                },
+                                                                "yaxis": {
+                                                                    "title": "Rating",
+                                                                    tickmode: 'auto',
+                                                                    },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="goal{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="g{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('g{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "name": "Yes",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.2.0|safe}},
+                                                            "y": {{dep_id.2.2}},
+                                                            text: {{dep_id.2.4|safe}},
+                                                            marker: {
+                                                                color: '#2ECC71'
+                                                            },
+
+                                                        },{
+                                                            "name": "No",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.2.1|safe}},
+                                                            "y": {{dep_id.2.3}},
+                                                            text: {{dep_id.2.5|safe}},
+                                                            marker: {
+                                                                color: '#E74C3C'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Daily intention goal - Time Series",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "barmode": 'stack',
+                                                            "xaxis": {
+                                                                "rangeslider": {},
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [1,0,-1],
+                                                                ticktext: ['Yes:','','No:'],
+
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+
+
+
+
+
+
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="about{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="a{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('a{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "name": "Yes",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.3.0|safe}},
+                                                            "y": {{dep_id.3.2}},
+                                                            text: {{dep_id.3.4|safe}},
+                                                            marker: {
+                                                                color: '#2ECC71'
+                                                            },
+
+                                                        },{
+                                                            "name": "No",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.3.1|safe}},
+                                                            "y": {{dep_id.3.3}},
+                                                            text: {{dep_id.3.5|safe}},
+                                                            marker: {
+                                                                color: '#E74C3C'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Recommendations rating - Time Series",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "barmode": 'stack',
+                                                            "xaxis": {
+                                                                "rangeslider": {},
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [1,0,-1],
+                                                                ticktext: ['Yes:','','No:'],
+
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+
+
+
+
+
+
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="about_pie{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="a_pie{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                    var gd = document.getElementById('a_pie{{dep_id.0}}');
+                                    var parent_width = $("#myTabContent").width();
+
+                                    var data = [{
+                                      type: "pie",
+                                      values:  {{dep_id.3.6}},
+                                      labels:['Deep Breathing','Time Out' ,'Body Scan' ,'Enjoyable activities'],
+                                      marker: {
+                                          colors: ['#2ECC71', '#E74C3C', '#3498DB', '#F4D03F']
+                                      },
+                                      domain: {
+                                        row: 0,
+                                        column: 0
+                                      },
+                                      textinfo: "label+percent",
+                                      textposition: "outside",
+                                      automargin: true
+                                    },{
+                                      type: "pie",
+                                      values:  {{dep_id.3.7}},
+                                      labels:['I didn’t have time', 'I didn’t think it would help', ' I didn’t see the message(s)'],
+                                      marker: {
+                                          colors: ['#0B5345', '#78281F', '#1B2631']
+                                      },
+                                      domain: {
+                                        row: 0,
+                                        column: 1
+                                      },
+                                      textinfo: "label+percent",
+                                      textposition: "outside",
+                                      automargin: true
+                                    },]
+
+                                    var layout = {
+                                      height: 400,
+                                      "width": parent_width-50,
+                                      margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+                                      showlegend: false,
+                                      grid: {rows: 1, columns: 2}
+                                      }
+
+                                    Plotly.newPlot(gd, data, layout);
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="about_sum{{dep_id.0}}" role="tabpanel">
+                                <div id="a_sum{{dep_id.0}}" style="width: 100%; height: 100%;"
+                                     class="plotly-graph-div"></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    var gd = document.getElementById('a_sum{{dep_id.0}}')
+                                                    var parent_width = $("#myTabContent").width()
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Deep Breathing",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.0.0.1|safe}},
+                                                            "y": {{dep_id.3.8.0.0.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#E74C3C", "width": 3},
+                                                            "name": "Time Out",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.0.1.1|safe}},
+                                                            "y": {{dep_id.3.8.0.1.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#E74C3C',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#3498DB", "width": 3},
+                                                            "name": "Body Scan",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.0.2.1|safe}},
+                                                            "y": {{dep_id.3.8.0.2.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#3498DB',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#F4D03F", "width": 3},
+                                                            "name": "Enjoyable activities",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.0.3.1|safe}},
+                                                            "y": {{dep_id.3.8.0.3.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#F4D03F',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#0B5345", "width": 3},
+                                                            "name": "I didn’t have time",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.1.0.1|safe}},
+                                                            "y": {{dep_id.3.8.1.0.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#0B5345',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#78281F", "width": 3},
+                                                            "name": "I didn’t think it would help",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.1.1.1|safe}},
+                                                            "y": {{dep_id.3.8.1.1.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#78281F',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        },{
+                                                            "line": {"color": "#1B2631", "width": 3},
+                                                            "name": "I didn’t see the message(s)",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.3.8.1.2.1|safe}},
+                                                            "y": {{dep_id.3.8.1.2.0}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#1B2631',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            }
+                                                        }],
+
+                                                        layout: {
+                                                            "title": "Recommendation rating - cumulative",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                        }]
+                                                                    }
+                                                                },
+                                                                "yaxis": {
+                                                                    "title": "Count",
+                                                                    },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+
+
+
+
+
+
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="help{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="h{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('h{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Rating",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.4.0|safe}},
+                                                            "y": {{dep_id.4.1}},
+                                                            text: {{dep_id.4.2|safe}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+                                                            "title": "helpfulness - Time Series",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                    }]
+                                                                }
+                                                            },
+                                                            "yaxis": {
+                                                                dtick: 1,
+                                                                rangemode: 'tozero',
+                                                                range: [0, 10]
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="reactive{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="r_timeline{{dep_id.0}}" style="width:100%; height:100%; ">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">Response 1</th>
+                                            <td>Yes I am stressed, please send a recommendation at this time</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Response 2</th>
+                                            <td>Yes I am stressed, but I do not want a recommendation at this time</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Response 3</th>
+                                            <td>No I am not stressed and I do not want a recommendation at this time
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Response 4</th>
+                                            <td>No I am not stressed, but I would like a recommendation at this time
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <script type="text/javascript">
+                                    (function(){
+                                        window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                        var gd = document.getElementById('r_timeline{{dep_id.0}}');
+                                        var parent_width = $("#myTabContent").width();
+
+                                        Plotly.plot(gd, {
+                                            data: [{
+                                                "name": "Rating",
+                                                "type": "scatter",
+                                                "x": {{dep_id.5.0|safe}},
+                                                "y": {{dep_id.5.1}},
+                                                mode: 'markers',
+                                                marker: {
+                                                    color: '#2ECC71',
+                                                    size: 10,
+                                                    symbol: 'circle'
+                                                },
+                                            }],
+
+                                            layout: {
+                                                "title": "Reactivity - Time Series",
+                                                "width": parent_width-50,
+                                                "autosize": true,
+                                                "xaxis": {
+                                                    "type": "date",
+                                                    "title": "UTC Timestamp",
+                                                    "rangeslider": {},
+                                                    "rangeselector": {
+                                                        "buttons": [{
+                                                            "step": "day",
+                                                            "count": 1,
+                                                            "label": "1d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "day",
+                                                            "count": 7,
+                                                            "label": "7d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "day",
+                                                            "count": 14,
+                                                            "label": "14d",
+                                                            "stepmode": "backward"
+                                                            }, {
+                                                            "step": "all"
+                                                        }]
+                                                    }
+                                                },
+                                                "yaxis": {
+                                                    tickvals: [0,1,2,3,4],
+                                                    ticktext: ['N/A:','Response 1','Response 2','Response 3','Response 4'],
+                                                },
+                                            },
+                                            useResizeHandler: true,
+                                            style: {width: "100%", height: "100%"},
+                                            config : {
+                                                    responsive: true
+                                            },
+                                        });
+
+                                   }());
+
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="reactive-pie{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="r_pie{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                    var gd = document.getElementById('r_pie{{dep_id.0}}');
+                                    var parent_width = $("#myTabContent").width();
+
+                                    var data = [{
+                                      type: "pie",
+                                      values:  {{dep_id.5.2}},
+                                      labels:['Yes I am stressed, please send a recommendation at this time', 'Yes I am stressed, but I do not want a recommendation at this time', 'No I am not stressed and I do not want a recommendation at this time', 'No I am not stressed, but I would like a recommendation at this time'],
+                                      marker: {
+                                          colors: ['#2ECC71', '#E74C3C', '#3498DB', '#F4D03F']
+                                      },
+                                      domain: {
+                                        row: 0,
+                                        column: 0
+                                      },
+                                      textinfo: "label+percent",
+                                      textposition: "outside",
+                                      automargin: true
+                                    },]
+
+                                    var layout = {
+                                      height: 400,
+                                      "width": parent_width-50,
+                                      margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+                                      showlegend: false,
+                                      grid: {rows: 1, columns: 1}
+                                      }
+                                    Plotly.newPlot(gd, data, layout);
+
+
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="footer">
+    <div class="container footer-row">
+        <hr>
+        <div class="footer-right-col">
+            <div class="footer-info">
+                <div class="copyright-text">
+                    <small>Copyright © 2021 University of Virginia</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+        var menuBtn = document.getElementById("menuBtn");
+        var sideNav = document.getElementById("sideNav");
+
+        sideNav.style.right = "-250px";
+        menuBtn.onclick = function(){
+            if(sideNav.style.right == "-250px"){
+                sideNav.style.right = "0";
+            }
+            else{
+                sideNav.style.right = "-250px";
+            }
+        }
+
+        var scroll = new SmoothScroll('a[href*="#"]',{
+            speed: 1000,
+            speedAsDuration: true
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

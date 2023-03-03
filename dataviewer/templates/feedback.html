@@ -1,0 +1,293 @@
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMA</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css'%}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+<body>
+<div class="container-xxl">
+    <section id="header">
+        <div class="container">
+            <h1 class="rainbow-text" style="position: absolute;
+                                                    top: 15px;
+                                                    left: 30px;
+                                                    font-size: 50px;
+                                                    background: -webkit-linear-gradient(#1B4F72, #2980B9);
+                                                    -webkit-background-clip: text;
+                                                    -webkit-text-fill-color: transparent;
+                ">PCR</h1>
+            <nav class="drown">
+                <ul>
+                    <li><a href="/dataviewer/tracking">Tracking</a></li>
+                    <li><a href="/dataviewer/daily">Daily</a></li>
+                    <li><a href="/dataviewer/weekly">Weekly</a></li>
+                    <li><a href="/dataviewer/feedback">Feedback</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<nav class="side" id="sideNav">
+    <ul>
+        <!--        {% if user.is_authenticated %}-->
+        <!--        <li><p class="lead">Hi {{ user.username }}!</p><li>-->
+        <li><a href="/">HOME</a></li>
+        <li><a href="/dataviewer/tracking">Tracking table</a>
+        <li>
+        <li><a href="/dataviewer/daily">Daily table</a>
+        <li>
+        <li><a href="/dataviewer/weekly">Weekly table</a>
+        <li>
+        <li><a href="/dataviewer/feedback">Feedback table</a>
+        <li>
+            <hr class="my-4">
+            <!--        <form method="post" action="/accounts/logout/">-->
+            <!--            {% csrf_token %}-->
+            <!--          <button style="text-decoration: none" class="btn btn btn-warning btn-lg btn-block" type="submit" onclick="return window.confirm('You are going to Sign out and back to the home page');" >Sign Out</button>-->
+            <!--        </form>-->
+            <!--        {% else %}-->
+            <!--            <script type="text/javascript">-->
+            <!--                var msg = confirm("Please login");-->
+            <!--                if (msg) {-->
+            <!--                    window.location.href = "/";-->
+            <!--                }-->
+            <!--            </script>-->
+            <!--        {% endif %}-->
+
+    </ul>
+</nav>
+<img src="{% static 'images/menu.png'%}" id="menuBtn">
+
+<section id="features">
+    <div class="feature-row">
+        <div class="col-md-2 mb-3" style="padding:20px;">
+            <ul class="nav nav-pills flex-column" id="myTab" role="tablist" style="padding:20px;">
+                <li class="nav-item" style="padding:20px;">
+                    <a class="nav-link active" data-toggle="tab" href="#note" role="tab" aria-selected="true">Feedback Table Instruction</a>
+                </li>
+                {% for dep_id in feedback %}
+                <li class="nav-item" style="padding:20px;">
+                    <a class="nav-link" data-toggle="tab" href="#tab{{dep_id.0}}" role="tab" aria-selected="true">{{dep_id.0}}</a>
+                </li>
+                {% endfor%}
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane active" id="note" role="tabpanel">
+                    <div class="card text-center" style="height: 650px; margin: 20px; ">
+                        <h1>Feedback table instruction</h1>
+                        <p>......</p>
+                    </div>
+                </div>
+                {% for dep_id in feedback %}
+                <div class="tab-pane fade" id="tab{{dep_id.0}}" role="tabpanel" style="padding:20px;">
+                    <div class="card text-center" style="width:100%; height: 650px; margin: 20px; ">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding:20px;">
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link active" data-toggle="pill" href="#about{{dep_id.0}}" role="tab">Ask about
+                                    recommendations</a>
+                            </li>
+                            <li class="nav-item" style="padding:20px;">
+                                <a class="nav-link" data-toggle="pill" href="#help{{dep_id.0}}"
+                                   role="tab">Helpfulness</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="about{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="a{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('a{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "name": "Yes",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.1.0|safe}},
+                                                            "y": {{dep_id.1.1}},
+                                                            text: {{dep_id.1.3|safe}},
+                                                            marker: {
+                                                                color: '#2ECC71'
+                                                            },
+
+                                                        },{
+                                                            "name": "No",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.1.0|safe}},
+                                                            "y": {{dep_id.1.2}},
+                                                            text: {{dep_id.1.4|safe}},
+                                                            marker: {
+                                                                color: '#E74C3C'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "About recommendations - Time Series",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "barmode": 'stack',
+                                                            "xaxis": {
+                                                                "rangeslider": {},
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [1,0,-1],
+                                                                ticktext: ['Yes:','','No:'],
+
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+                                </script>
+                            </div>
+                            <div class="tab-pane fade" id="help{{dep_id.0}}" role="tabpanel"
+                                 style="width:100%; height:100%;">
+                                <div id="h{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                                <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('h{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "line": {"color": "#2ECC71", "width": 3},
+                                                            "name": "Rating",
+                                                            "type": "scatter",
+                                                            "x": {{dep_id.2.0|safe}},
+                                                            "y": {{dep_id.2.1}},
+                                                            text: {{dep_id.2.2|safe}},
+                                                            mode: 'lines+markers',
+                                                            marker: {
+                                                                color: '#2ECC71',
+                                                                size: 8,
+                                                                symbol: 'circle'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "helpfulness - Time Series",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "xaxis": {
+                                                                "type": "date",
+                                                                "title": "UTC Timestamp",
+                                                                "rangeslider": {},
+                                                                "rangeselector": {
+                                                                    "buttons": [{
+                                                                        "step": "day",
+                                                                        "count": 1,
+                                                                        "label": "1d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 7,
+                                                                        "label": "7d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "day",
+                                                                        "count": 14,
+                                                                        "label": "14d",
+                                                                        "stepmode": "backward"
+                                                                        }, {
+                                                                        "step": "all"
+                                                                    }]
+                                                                }
+                                                            },
+                                                            "yaxis": {
+                                                                dtick: 1,
+                                                                rangemode: 'tozero',
+                                                                range: [0, 10]
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="footer">
+    <div class="container footer-row">
+        <hr>
+        <div class="footer-right-col">
+            <div class="footer-info">
+                <div class="copyright-text">
+                    <small>Copyright © 2021 University of Virginia</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+        var menuBtn = document.getElementById("menuBtn");
+        var sideNav = document.getElementById("sideNav");
+
+        sideNav.style.right = "-250px";
+        menuBtn.onclick = function(){
+            if(sideNav.style.right == "-250px"){
+                sideNav.style.right = "0";
+            }
+            else{
+                sideNav.style.right = "-250px";
+            }
+        }
+
+        var scroll = new SmoothScroll('a[href*="#"]',{
+            speed: 1000,
+            speedAsDuration: true
+        });
+
+
+
+
+</script>
+
+
+</body>
+</html>

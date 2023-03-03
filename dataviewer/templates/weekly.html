@@ -1,0 +1,580 @@
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMA</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css'%}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+<body>
+<div class="container-xxl">
+    <section id="header">
+        <div class="container">
+            <h1 class="rainbow-text" style="position: absolute;
+                                                    top: 15px;
+                                                    left: 30px;
+                                                    font-size: 50px;
+                                                    background: -webkit-linear-gradient(#1B4F72, #2980B9);
+                                                    -webkit-background-clip: text;
+                                                    -webkit-text-fill-color: transparent;
+                ">PCR</h1>
+            <nav class="drown">
+                <ul>
+                    <li><a href="/dataviewer/tracking">Tracking</a></li>
+                    <li><a href="/dataviewer/daily">Daily</a></li>
+                    <li><a href="/dataviewer/weekly">Weekly</a></li>
+                    <!--                    <li><a href="/dataviewer/feedback">Feedback</a></li>-->
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<div class="loader-wrapper">
+    <p>loading....</p>
+</div>
+<script>
+    $(window).on("load",function(){
+        $(".loader-wrapper").fadeOut("slow");
+    });
+
+</script>
+
+<nav class="side" id="sideNav">
+    <ul>
+        <!--        {% if user.is_authenticated %}-->
+        <!--        <li><p class="lead">Hi {{ user.username }}!</p><li>-->
+        <li><a href="/">HOME</a></li>
+        <li><a href="/dataviewer/tracking">Tracking table</a>
+        <li>
+        <li><a href="/dataviewer/daily">Daily table</a>
+        <li>
+        <li><a href="/dataviewer/weekly">Weekly table</a>
+        <li>
+        <li><a href="/dataviewer/feedback">Feedback table</a>
+        <li>
+            <hr class="my-4">
+            <!--        <form method="post" action="/accounts/logout/">-->
+            <!--            {% csrf_token %}-->
+            <!--          <button style="text-decoration: none" class="btn btn btn-warning btn-lg btn-block" type="submit" onclick="return window.confirm('You are going to Sign out and back to the home page');" >Sign Out</button>-->
+            <!--        </form>-->
+            <!--        {% else %}-->
+            <!--            <script type="text/javascript">-->
+            <!--                var msg = confirm("Please login");-->
+            <!--                if (msg) {-->
+            <!--                    window.location.href = "/";-->
+            <!--                }-->
+            <!--            </script>-->
+            <!--        {% endif %}-->
+
+    </ul>
+</nav>
+<img src="{% static 'images/menu.png'%}" id="menuBtn">
+
+<section id="features">
+    <div class="feature-row">
+        <div class="col-md-2 mb-3" style="padding:20px;">
+            <ul class="nav nav-pills flex-column" id="myTab" role="tablist" style="padding:20px;">
+                <li class="nav-item" style="padding:20px;">
+                    <a class="nav-link active" data-toggle="tab" href="#note" role="tab" aria-selected="true">Weekly
+                        Table Instruction</a>
+                </li>
+                {% for dep_id in weekly %}
+                <li class="nav-item" style="padding:20px;">
+                    <a class="nav-link" data-toggle="tab" href="#tab{{dep_id.0}}" role="tab" aria-selected="true">{{dep_id.0}}</a>
+                </li>
+                {% endfor%}
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane active" id="note" role="tabpanel">
+                    <div class="card text-center" style="height: 650px; margin: 20px; ">
+                        <br>
+                        <h1>Weekly table instruction</h1>
+                        <hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="list-group" id="list-tab" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-messages-list"
+                                           data-toggle="list" href="#messages" role="tab" aria-controls="messages">Number
+                                            of messages</a>
+                                        <a class="list-group-item list-group-item-action" id="list-between-list"
+                                           data-toggle="list" href="#between" role="tab" aria-controls="between">Time
+                                            between messages</a>
+                                        <a class="list-group-item list-group-item-action" id="list-stop-list"
+                                           data-toggle="list" href="#stop" role="tab" aria-controls="stop">Start and
+                                            stop time</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Most-list"
+                                           data-toggle="list" href="#Most" role="tab" aria-controls="Most">Most helpful
+                                            tips</a>
+                                        <a class="list-group-item list-group-item-action" id="list-MostPie-list"
+                                           data-toggle="list" href="#MostPie" role="tab" aria-controls="MostPie">Most
+                                            helpful tips - pie</a>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="messages" role="tabpanel"
+                                             aria-labelledby="list-messages-list" style="text-align:left;">The bar graph shows your preference regarding the number of messages sent during the day.
+                                            <br>·
+                                            <text style="color:#2ECC71">Yes (green)</text>
+                                            : It means you are satisfied with the number of messages sent during the day.
+                                            <br>·
+                                            <text style="color:#E74C3C">Yes (green)</text>
+                                            : You may edit the number of messages that you will receive next time.
+
+                                        </div>
+                                        <div class="tab-pane fade" id="between" role="tabpanel"
+                                             aria-labelledby="list-between-list" style="text-align:left;">The bar graph shows your preference regarding the message interval (i.e., duration between the initial message and the next message).
+                                            <br>·
+                                            <text style="color:#2ECC71">Yes (green)</text>
+                                            :  It means you are satisfied with the message interval.
+                                            <br>·
+                                            <text style="color:#E74C3C">Yes (green)</text>
+                                            : You may edit the message interval and have a longer/shorter duration between initial and next messages next time.
+
+                                        </div>
+                                        <div class="tab-pane fade" id="stop" role="tabpanel"
+                                             aria-labelledby="list-stop-list" style="text-align:left;">The bar graph
+                                            shows your preferences regarding the start and stop time to deliver
+                                            messages.
+                                            <br>·
+                                            <text style="color:#2ECC71">Yes (green)</text>: It means you are satisfied with the daily timeframe when you
+                                            receive messages.
+                                            <br>·
+                                            <text style="color:#E74C3C">Yes (green)</text>: You may edit the start and stop time to deliver messages and the
+                                            daily timeframe may be longer or shorter.
+
+                                        </div>
+                                        <div class="tab-pane fade" id="Most" role="tabpanel"
+                                              aria-labelledby="list-Most-list" style="text-align:left;">
+                                             The colorful bar chart shows which messages were helpful the most among the messages you received during the WEEK. The strategies include the
+                                             following components:
+                                        <br>· <text style="color:#2ECC71">Morning self-care goal</text>
+                                        <br>· <text style="color:#E74C3C">Encouraging words in the morning</text>
+                                        <br>· <text style="color:#3498DB">Messages about positive aspects of caregiving</text>
+                                        <br>· <text style="color:#F4D03F">Timeout</text>
+                                        <br>· <text style="color:#0B5345">Enjoyable activities</text>
+                                        <br>· <text style="color:#78281F">Deep breathing</text>
+                                        <br>· <text style="color:#1B2631">Body scan</text>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="MostPie" role="tabpanel"
+                                         aria-labelledby="list-MostPie-list" style="text-align:left;">The pie graph shows the proportion of the most helpful strategies during the WEEK.
+                                        <br>· <text style="color:#2ECC71">Morning self-care goal</text>
+                                        <br>· <text style="color:#E74C3C">Encouraging words in the morning</text>
+                                        <br>· <text style="color:#3498DB">Messages about positive aspects of caregiving</text>
+                                        <br>· <text style="color:#F4D03F">Timeout</text>
+                                        <br>· <text style="color:#0B5345">Enjoyable activities</text>
+                                        <br>· <text style="color:#78281F">Deep breathing</text>
+                                        <br>· <text style="color:#1B2631">Body scan</text>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% for dep_id in weekly %}
+            <div class="tab-pane fade" id="tab{{dep_id.0}}" role="tabpanel" style="padding:20px;">
+                <div class="card text-center" style="width:100%; height: 650px; margin: 20px; ">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding:20px;">
+                        <li class="nav-item" style="padding:20px;">
+                            <a class="nav-link active" data-toggle="pill" href="#messages{{dep_id.0}}" role="tab"
+                               aria-selected="true">Number of Messages</a>
+                        </li>
+                        <li class="nav-item" style="padding:20px;">
+                            <a class="nav-link" data-toggle="pill" href="#msgetime{{dep_id.0}}" role="tab"
+                               aria-selected="true">Time Between Messages</a>
+                        </li>
+                        <li class="nav-item" style="padding:20px;">
+                            <a class="nav-link" data-toggle="pill" href="#SST{{dep_id.0}}" role="tab">Start and Stop
+                                Time</a>
+                        </li>
+                        <li class="nav-item" style="padding:20px;">
+                            <a class="nav-link" data-toggle="pill" href="#most{{dep_id.0}}" role="tab">Most Helpful
+                                Tip</a>
+                        </li>
+                        <li class="nav-item" style="padding:20px;">
+                            <a class="nav-link" data-toggle="pill" href="#most_p{{dep_id.0}}" role="tab">Most
+                                Helpful Tip - Pie</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="messages{{dep_id.0}}" role="tabpanel"
+                             style="width:100%; height:100%;">
+                            <div id="msg{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                            <script type="text/javascript">
+                                                 (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('msg{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                    Plotly.plot(gd, {
+                                                        data: [{
+                                                            "name": "Yes",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.1.0|safe}},
+                                                            "y": {{dep_id.1.1}},
+                                                            text: {{dep_id.1.2|safe}},
+                                                            marker: {
+                                                                color: '#2ECC71'
+                                                            },
+
+                                                        },{
+                                                            "name": "No",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.1.3|safe}},
+                                                            "y": {{dep_id.1.4}},
+                                                            text: {{dep_id.1.5|safe}},
+                                                            marker: {
+                                                                color: '#E74C3C'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Number of Messages Preference",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "barmode": 'stack',
+                                                            "xaxis": {
+                                                                "rangeslider": {},
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [1,0,-1],
+                                                                ticktext: ['Yes:','','No:'],
+
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+
+
+
+
+                            </script>
+                        </div>
+                        <div class="tab-pane fade" id="msgetime{{dep_id.0}}" role="tabpanel"
+                             style="width:100%; height:100%;">
+                            <div id="time{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                            <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('time{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                     Plotly.plot(gd, {
+                                                        data: [{
+                                                            "name": "Yes",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.2.0|safe}},
+                                                            "y": {{dep_id.2.1}},
+                                                            text: {{dep_id.2.2|safe}},
+                                                            marker: {
+                                                                color: '#2ECC71'
+                                                            },
+
+                                                        },{
+                                                            "name": "No",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.2.3|safe}},
+                                                            "y": {{dep_id.2.4}},
+                                                            text: {{dep_id.2.5|safe}},
+                                                            marker: {
+                                                                color: '#E74C3C'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Time Between Messages Preference",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "barmode": 'stack',
+                                                            "xaxis": {
+                                                                "rangeslider": {},
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [1,0,-1],
+                                                                ticktext: ['Yes:','','No:'],
+
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+
+
+
+
+
+
+                            </script>
+                        </div>
+                        <div class="tab-pane fade" id="SST{{dep_id.0}}" role="tabpanel" style="width:100%; height:100%;">
+                            <div id="S{{dep_id.0}}" style="width: 100%; height: 100%;" class="plotly-graph-div"></div>
+                            <script type="text/javascript">
+                                                (function(){
+                                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                                    var gd = document.getElementById('S{{dep_id.0}}');
+                                                    var parent_width = $("#myTabContent").width();
+
+                                                     Plotly.plot(gd, {
+                                                        data: [{
+                                                            "name": "Yes",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.3.0|safe}},
+                                                            "y": {{dep_id.3.1}},
+                                                            text: {{dep_id.3.2|safe}},
+                                                            marker: {
+                                                                color: '#2ECC71'
+                                                            },
+
+                                                        },{
+                                                            "name": "No",
+                                                            "type": "bar",
+                                                            "x": {{dep_id.3.3|safe}},
+                                                            "y": {{dep_id.3.4}},
+                                                            text: {{dep_id.3.5|safe}},
+                                                            marker: {
+                                                                color: '#E74C3C'
+                                                            },
+                                                        }],
+
+                                                        layout: {
+
+                                                            "title": "Start and Stop Time Preference",
+                                                            "width": parent_width-50,
+                                                            "autosize": true,
+                                                            "barmode": 'stack',
+                                                            "xaxis": {
+                                                                "rangeslider": {},
+                                                            },
+                                                            "yaxis": {
+                                                                tickvals: [1,0,-1],
+                                                                ticktext: ['Yes:','','No:'],
+
+                                                            },
+                                                        },
+                                                        useResizeHandler: true,
+                                                        style: {width: "100%", height: "100%"},
+                                                        config : {
+                                                                responsive: true
+                                                        },
+                                                    });
+
+                                               }());
+                            </script>
+                        </div>
+                        <div class="tab-pane fade" id="most{{dep_id.0}}" role="tabpanel"
+                             style=" width:100%; height:100%;">
+                            <div id="M{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                            <script type="text/javascript">
+                                (function(){
+                                    window.PLOTLYENV={'BASE_URL': 'https://plotly.com'};
+
+                                    var gd = document.getElementById('M{{dep_id.0}}');
+                                    var parent_width = $("#myTabContent").width();
+
+                                    Plotly.plot(gd, {
+                                        data: [{
+                                            "name": "Body Scan",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.0}},
+                                            marker: {
+                                                color: '#2ECC71'
+                                            },
+
+                                        },{
+                                            "name": "Deep Breathing",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.1}},
+                                            marker: {
+                                                color: '#E74C3C'
+                                            },
+                                        },{
+                                            "name": "Enjoyable activities",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.2}},
+                                            marker: {
+                                                color: '#3498DB'
+                                            },
+                                        },{
+                                            "name": "Time Out",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.3}},
+                                            marker: {
+                                                color: '#F4D03F'
+                                            },
+                                        },{
+                                            "name": "Positive aspects of caregiving",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.4}},
+                                            marker: {
+                                                color: '#0B5345'
+                                            },
+                                        },{
+                                            "name": "Encouraging words in the morning",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.5}},
+                                            marker: {
+                                                color: '#78281F'
+                                            },
+                                        },{
+                                            "name": "Morning self-care goal",
+                                            "type": "bar",
+                                            "x": {{dep_id.4.0|safe}},
+                                            "y": {{dep_id.4.1.6}},
+                                            marker: {
+                                                color: '#1B2631'
+                                            },
+                                        }],
+
+                                        layout: {
+
+                                            "title": "Most Helpful Tip",
+                                            "width": parent_width-50,
+                                            "autosize": true,
+                                            "barmode": 'stack',
+                                            "xaxis": {
+                                                "rangeslider": {},
+                                            },
+                                            "yaxis": {
+                                                dtick: 1,
+                                                rangemode: 'tozero',
+                                                range: [0, 10]
+                                            },
+                                        },
+                                        useResizeHandler: true,
+                                        style: {width: "100%", height: "100%"},
+                                        config : {
+                                                responsive: true
+                                        },
+                                    });
+                               }());
+                            </script>
+                        </div>
+                        <div class="tab-pane fade" id="most_p{{dep_id.0}}" role="tabpanel"
+                             style="width:100%; height:100%;">
+                            <div id="MP{{dep_id.0}}" style="width:100%; height:100%; "></div>
+                            <script type="text/javascript">
+                                    var gd = document.getElementById('MP{{dep_id.0}}');
+                                    var parent_width = $("#myTabContent").width();
+
+                                    var data = [{
+                                      type: "pie",
+                                      values:  {{dep_id.4.2}},
+                                      labels:['Body Scan', 'Deep Breathing', 'Enjoyable activities', 'Time Out', 'Positive aspects of caregiving', 'Encouraging words in the morning','Morning self-care goal'],
+                                      marker: {
+                                          colors: ['#2ECC71', '#E74C3C', '#3498DB', '#F4D03F', '#0B5345', '#78281F', '#1B2631']
+                                      },
+                                      textinfo: "label+percent",
+                                      textposition: "outside",
+                                      automargin: true
+                                    }]
+
+                                    var layout = {
+                                      height: 400,
+                                      "width": parent_width-50,
+                                      margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+                                      showlegend: false
+                                      }
+
+                                    Plotly.newPlot(gd, data, layout);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+    </div>
+</section>
+
+
+<section id="footer">
+    <div class="container footer-row">
+        <hr>
+        <div class="footer-right-col">
+            <div class="footer-info">
+                <div class="copyright-text">
+                    <small>Copyright © 2021 University of Virginia</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+        var menuBtn = document.getElementById("menuBtn");
+        var sideNav = document.getElementById("sideNav");
+
+        sideNav.style.right = "-250px";
+        menuBtn.onclick = function(){
+            if(sideNav.style.right == "-250px"){
+                sideNav.style.right = "0";
+            }
+            else{
+                sideNav.style.right = "-250px";
+            }
+        }
+
+        var scroll = new SmoothScroll('a[href*="#"]',{
+            speed: 1000,
+            speedAsDuration: true
+        });
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
