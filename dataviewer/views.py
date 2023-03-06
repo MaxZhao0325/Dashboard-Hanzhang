@@ -410,6 +410,174 @@ def tracking_dept_tab(request, dept_id, tab):
 
     # deal with emotion_steps and emotion_table at the same time
     if(tab=="emotion_table" or tab=="emotion"):
+        # print("loading", tab)
+        # print("start", time.perf_counter())
+
+        # # just get the specific dep we want rather than all of them
+        # cursor.execute(
+        #     "SELECT DISTINCT dep_id FROM `sch_data`.`ema_storing_data` WHERE dep_id NOT regexp \"^-1$|^200$|^999$|^6232021$|^10$|^11111$|^11112$\" AND dep_id = (%s)", dept_id)
+        # dep_id = cursor.fetchall()
+    
+        # # just one item in dep_id
+        # for id in dep_id:
+        #     # Only retrieve data of the dep_id we want to monitor (this can reduce some loading time)
+        #     if id[0] not in monitor_date_table:
+        #         continue
+
+        #     if id[0] in deployment_date_table:
+        #         date = deployment_date_table[id[0]]
+        #         if date[1] != "":
+        #             emo_var_SQL = "SELECT time, event_vct FROM `sch_data`.`ema_storing_data` WHERE time between\"" + date[0] + "\" AND \""+ date[1]+"\" AND dep_id = (%s) ORDER BY time"
+        #         elif date[1] == "":
+        #             emo_var_SQL = "SELECT time, event_vct FROM `sch_data`.`ema_storing_data` WHERE time >\"" + date[0] + "\" AND dep_id = (%s) ORDER BY time"
+        #         else:
+        #             emo_var_SQL = "SELECT time, event_vct FROM `sch_data`.`ema_storing_data` WHERE time > \"2021-06-01 00:00:00\" AND dep_id = (%s) ORDER BY time"
+        #     else:
+        #         emo_var_SQL = "SELECT time, event_vct FROM `sch_data`.`ema_storing_data` WHERE time > \"2021-06-01 00:00:00\" AND dep_id = (%s) ORDER BY time"
+        #         date = monitor_date_table[id[0]]
+
+        #     cursor.execute(emo_var_SQL, id)
+        #     emo_var = cursor.fetchall()
+
+        #     #emotion
+        #     if date[1] != "":
+        #         start_date = datetime.datetime.strptime(date[0], "%Y-%m-%d %H:%M:%S")
+        #     elif date[1] == "":
+        #         start_date = datetime.datetime.strptime(date[0], "%Y-%m-%d %H:%M:%S")
+        #     else:
+        #         start_date = emo_var[0][0].replace(minute=0, second=0, microsecond=0)
+
+        #     intervention_period = start_date + datetime.timedelta(days=30)
+        #     # print("startdate",start_date)
+        #     # print("intev",intervention_period)
+
+        #     intervention_period_counter = [0, 0, 0, 0, 0, 0]
+        #     baseline_period_counter = [0, 0, 0, 0, 0, 0]
+        #     total_emotion_counter = [0, 0, 0, 0, 0, 0]
+        #     counted_period = [0, 0, 0, 0, 0, 0]
+
+        #     emotion_steps = [[],[],[],[],[],[],[]]
+        #     counter = 0
+        #     counting_step = datetime.timedelta(hours=1)
+
+        #     def intervention_period_helper(index):
+        #         if item[0] > intervention_period:
+        #             intervention_period_counter[index] += 1
+        #         else:
+        #             baseline_period_counter[index] += 1
+        #         total_emotion_counter[index] += 1
+        #         counted_period[index] += 1
+
+        #     def emo_counter_helper(counted,time):
+        #         # as long as there is one emotion that is not counted as 0, we record this day
+        #         record=False
+        #         for i in range(6):
+        #             if(counted[i])!=0:
+        #                 record=True
+        #         if (record):
+        #             for index in range(len(emotion_steps)):
+        #                 if index == 0:
+        #                     emotion_steps[0].append(time)
+        #                 else:
+        #                     emotion_steps[index].append(counted[index-1])
+                                
+        #     for item in emo_var:
+                
+        #         # period close
+        #         while item[0] > start_date:
+        #             emo_counter_helper(counted_period, start_date.strftime("%Y-%m-%d %H:%M:%S"))
+        #             counted_period = [0, 0, 0, 0, 0, 0]
+        #             start_date = start_date + counting_step
+
+        #         temp = json.loads(item[1])
+        #         element = temp.index(max(temp[0:4]))
+        #         if len(temp) == 6 and temp[5] > 0.525:
+        #             intervention_period_helper(5)
+        #         if temp[0] == temp[1] == temp[2] == temp[3] == temp[4] == 0:
+        #             continue
+        #         else:
+        #             intervention_period_helper(element)
+        #         counter += 1
+
+        #         # ensure the last one added
+        #         if counter == len(emo_var) and counted_period != [0, 0, 0, 0, 0, 0]:
+        #             emo_counter_helper(counted_period, start_date.strftime("%Y-%m-%d %H:%M:%S"))
+
+        #     # print(emotion_steps[1])
+        #     # print(emotion_steps[2])
+        #     # print(emotion_steps[3])
+        #     # print(emotion_steps[4])
+        #     # print(emotion_steps[5])
+        #     # print(emotion_steps[6])
+
+        # emotion_counter = [baseline_period_counter, intervention_period_counter, total_emotion_counter]
+
+        emotion_steps=request.session['emotion_steps']
+        emotion_counter=request.session['emotion_counter']
+
+        print("end", time.perf_counter())
+        if(tab == "emotion"):
+            # the latest time stamp in our dataset
+            latest_time_str = emotion_steps[0][len(emotion_steps[0])-1]
+            latest_time_datetime = datetime.datetime.strptime(latest_time_str, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(days=1)
+            # change the time format to year-month-day so that it can be used in javascript
+            latest_time_str = latest_time_datetime.strftime("%Y-%m-%d %H:%M:%S")[:10]
+        
+            # we just want to display the recent 7days or 1 day in default
+            date_default_datetime = latest_time_datetime - datetime.timedelta(days=7)
+            date_default_str = date_default_datetime.strftime("%Y-%m-%d %H:%M:%S")
+            date_default_str = date_default_str[:10]
+            
+            # print(date_default_str)
+            # print(latest_time_str)
+            return render(request, 'tracking.html', {'emotion_steps':emotion_steps, 'dept_list': dept_list, 'dept_id':str(dept_id), 'date_default_str':date_default_str, 'latest_time_str':latest_time_str})
+        return render(request, 'tracking.html', {'emotion_counter':emotion_counter, 'dept_list': dept_list, 'dept_id':str(dept_id)})
+
+    # deal with action tab
+    elif(tab=="action"):
+        print("loading", tab)
+        print("start", time.perf_counter())
+
+        cursor.execute(
+            "SELECT time, action FROM `sch_data`.`ema_storing_data` WHERE time > \"2021-03-01 00:00:00\" AND dep_id = (%s) ORDER BY time",
+            dept_id)
+        act_var = cursor.fetchall()
+
+        nothing = action_helper(-2, -1, act_var, 0)
+        timeout = action_helper(0, 8, act_var, 1)
+        breathing = action_helper(9, 11, act_var, 2)
+        bodyscan = action_helper(12, 13, act_var, 3)
+        activities = action_helper(14, 21, act_var, 4)
+        act_list = [nothing, timeout, breathing, bodyscan, activities]
+        # print(act_list)
+
+        print("end", time.perf_counter())
+        return render(request, 'tracking.html', {'dept_list': dept_list, 'dept_id':str(dept_id), 'act_list':act_list})
+
+    # deal with stress_level
+    elif(tab=="stress_level"):
+        print("loading", tab)
+        print("start", time.perf_counter())
+
+        cursor.execute(
+            "SELECT TimeReceived, Response FROM `sch_data`.reward_data where QuestionName REGEXP \"baseline:recomm:likertconfirm:1\" AND Response !=\"-1.0\" AND Response !=\"-1\" AND dep_id = (%s) ORDER BY TimeReceived",
+            dept_id)
+        baseline_db = cursor.fetchall()
+        baseline_list = []
+        baseline_timestamp = []
+        baseline_response = []
+        for item in baseline_db:
+            baseline_timestamp.append(item[0])
+            baseline_response.append(int(item[1]))
+        baseline_list.append(baseline_timestamp)
+        baseline_list.append(baseline_response)
+
+        print("end", time.perf_counter())
+
+
+
+
+
         print("loading", tab)
         print("start", time.perf_counter())
 
@@ -511,65 +679,12 @@ def tracking_dept_tab(request, dept_id, tab):
             # print(emotion_steps[6])
 
         emotion_counter = [baseline_period_counter, intervention_period_counter, total_emotion_counter]
+        request.session['emotion_steps']=emotion_steps
+        request.session['emotion_counter']=emotion_counter
 
-        print("end", time.perf_counter())
-        if(tab == "emotion"):
-            # the latest time stamp in our dataset
-            latest_time_str = emotion_steps[0][len(emotion_steps[0])-1]
-            latest_time_datetime = datetime.datetime.strptime(latest_time_str, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(days=1)
-            # change the time format to year-month-day so that it can be used in javascript
-            latest_time_str = latest_time_datetime.strftime("%Y-%m-%d %H:%M:%S")[:10]
-        
-            # we just want to display the recent 7days or 1 day in default
-            date_default_datetime = latest_time_datetime - datetime.timedelta(days=7)
-            date_default_str = date_default_datetime.strftime("%Y-%m-%d %H:%M:%S")
-            date_default_str = date_default_str[:10]
-            
-            # print(date_default_str)
-            # print(latest_time_str)
-            return render(request, 'tracking.html', {'emotion_steps':emotion_steps, 'dept_list': dept_list, 'dept_id':str(dept_id), 'date_default_str':date_default_str, 'latest_time_str':latest_time_str})
-        return render(request, 'tracking.html', {'emotion_counter':emotion_counter, 'dept_list': dept_list, 'dept_id':str(dept_id)})
 
-    # deal with action tab
-    elif(tab=="action"):
-        print("loading", tab)
-        print("start", time.perf_counter())
 
-        cursor.execute(
-            "SELECT time, action FROM `sch_data`.`ema_storing_data` WHERE time > \"2021-03-01 00:00:00\" AND dep_id = (%s) ORDER BY time",
-            dept_id)
-        act_var = cursor.fetchall()
 
-        nothing = action_helper(-2, -1, act_var, 0)
-        timeout = action_helper(0, 8, act_var, 1)
-        breathing = action_helper(9, 11, act_var, 2)
-        bodyscan = action_helper(12, 13, act_var, 3)
-        activities = action_helper(14, 21, act_var, 4)
-        act_list = [nothing, timeout, breathing, bodyscan, activities]
-        # print(act_list)
-
-        print("end", time.perf_counter())
-        return render(request, 'tracking.html', {'dept_list': dept_list, 'dept_id':str(dept_id), 'act_list':act_list})
-
-    # deal with stress_level
-    elif(tab=="stress_level"):
-        print("loading", tab)
-        print("start", time.perf_counter())
-
-        cursor.execute(
-            "SELECT TimeReceived, Response FROM `sch_data`.reward_data where QuestionName REGEXP \"baseline:recomm:likertconfirm:1\" AND Response !=\"-1.0\" AND Response !=\"-1\" AND dep_id = (%s) ORDER BY TimeReceived",
-            dept_id)
-        baseline_db = cursor.fetchall()
-        baseline_list = []
-        baseline_timestamp = []
-        baseline_response = []
-        for item in baseline_db:
-            baseline_timestamp.append(item[0])
-            baseline_response.append(int(item[1]))
-        baseline_list.append(baseline_timestamp)
-        baseline_list.append(baseline_response)
-
-        print("end", time.perf_counter())
         return render(request, 'tracking.html', {'dept_list': dept_list, 'dept_id':str(dept_id), 'baseline_list':baseline_list})
 
     # deal with post recommendation
