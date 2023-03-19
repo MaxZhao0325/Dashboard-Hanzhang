@@ -1,5 +1,6 @@
 <html>
 {% load static %}
+{% load socialaccount %}
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMA</title>
@@ -38,6 +39,7 @@
 
 
 <body>
+ 
 <section id="header">
     <div class="container">
         <h1 class="rainbow-text" style="position: absolute;
@@ -56,7 +58,9 @@
                 <!--                <li><a href="/dataviewer/feedback">Feedback</a></li>-->
             </ul>
         </nav>
+        
     </div>
+
 </section>
 
 <div class="loader-wrapper">
@@ -96,8 +100,21 @@
             <!--        {% endif %}-->
 
     </ul>
+    
 </nav>
 <img src="{% static 'images/menu.png'%}" id="menuBtn">
+
+<!-- displaying the message at the top of the page -->
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+  {{ message | safe }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+</div>
+{% endfor %}
+
+
+{% if user.is_authenticated %} 
+<center><a href="/accounts/logout">Logout</a></center>
 
 <section id="features">
     <div class="feature-row">
@@ -1112,6 +1129,11 @@
             });
     })
 </script>
+
+{% else %}
+<center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
+
+{% endif %}
 
 
 </body>

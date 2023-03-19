@@ -11,6 +11,9 @@ import re
 import requests
 import time
 
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 # from ..db.urls import INTERGER
 
 
@@ -385,13 +388,34 @@ def tracking_dept(request, dept_id):
     # e_6=[]
     # return render(request, 'tracking.html', {'tracking': tracking_list, 'dept_list': dept_list, 'e_0':e_0, 'e_1':e_1, 'e_2':e_2, 'e_3':e_3, 'e_4':e_4, 'e_5':e_5, 'e_6':e_6})
 
-
-
     # this line of code is used to control the default tab displayed
     return HttpResponseRedirect("/dataviewer/tracking/" + str(dept_id) + "/stress_level/")
 
+# check if the user email is authorized to view the data
+def email_check(user):
+    print("checked!")
+    allowed_emails = settings.ALLOWED_EMAILS
+    if user.is_anonymous:
+        return False
+    elif user.email in allowed_emails:
+        return True
+    else:
+        return False
+
 # used to track each tab. Parameter: dep_id and tab name. Return: the corresponding dep_id and tab page
 def tracking_dept_tab(request, dept_id, tab):
+
+    # check if user login before accessing the page
+    if(not request.user.is_authenticated):
+        print("please login!")
+        return HttpResponseRedirect("/accounts/google/login/")
+    print("google account logged in!")
+    # if google account is not authorized, back to login page and logout from google account
+    if (not email_check(request.user)):
+        messages.error(request, 'Sorry. You do not have access to the data.')
+        print("account does not access!")
+        return HttpResponseRedirect("/dataviewer/tracking")
+
     cursor = connections['ema'].cursor()
     # adding a dept_list in order to display the side bar containing each avaliable date button that we can click on to load its corresponding data
     dept_list = []
@@ -577,7 +601,7 @@ def tracking_dept_tab(request, dept_id, tab):
 
 
 
-
+        # load emotion/table data in stress_level tab and save them to the session
         print("loading", tab)
         print("start", time.perf_counter())
 
@@ -671,17 +695,10 @@ def tracking_dept_tab(request, dept_id, tab):
                 if counter == len(emo_var) and counted_period != [0, 0, 0, 0, 0, 0]:
                     emo_counter_helper(counted_period, start_date.strftime("%Y-%m-%d %H:%M:%S"))
 
-            # print(emotion_steps[1])
-            # print(emotion_steps[2])
-            # print(emotion_steps[3])
-            # print(emotion_steps[4])
-            # print(emotion_steps[5])
-            # print(emotion_steps[6])
-
         emotion_counter = [baseline_period_counter, intervention_period_counter, total_emotion_counter]
         request.session['emotion_steps']=emotion_steps
         request.session['emotion_counter']=emotion_counter
-
+        # load emotion/table data in stress_level tab and save them to the session
 
 
 
@@ -825,6 +842,7 @@ def tracking_dept_tab(request, dept_id, tab):
 
 # homepage, does not calculate data for each deps but just display the homepage
 def tracking(request):
+
     print("instruction")
     print("start", time.perf_counter())
     cursor = connections['ema'].cursor()

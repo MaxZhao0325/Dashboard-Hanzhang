@@ -162,3 +162,30 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/dataviewer/tracking/'
+LOGOUT_REDIRECT_URL = '/dataviewer/tracking/'
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
+# add a list of allowed host so that only certain google accounts can use our website
+ALLOWED_EMAILS=[
+  'hz9xs@virginia.edu',
+  'zhz990319@gmail.com',
+]
