@@ -183,6 +183,17 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+# redirect http to https for safety
+SECURE_SSL_REDIRECT = True
 
 # add a list of allowed host so that only certain google accounts can use our website
 ALLOWED_EMAILS=[
