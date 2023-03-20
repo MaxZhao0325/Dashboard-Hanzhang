@@ -183,7 +183,7 @@ MESSAGE_TAGS = {
 }
 
 # redirect http to https for safety
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 # add a list of allowed host so that only certain google accounts can use our website
 ALLOWED_EMAILS=[
