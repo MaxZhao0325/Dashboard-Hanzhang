@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('dataviewer/', include('dataviewer.urls')),
+    path('', include('dataviewer.urls')),
     path('admin/', admin.site.urls),
     path('home/', TemplateView.as_view(template_name="home/index.html"), name="home"),
     path('about/', TemplateView.as_view(template_name="home/about.html"), name="about"),
