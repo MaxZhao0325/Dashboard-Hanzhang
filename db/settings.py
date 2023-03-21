@@ -189,4 +189,5 @@ SECURE_SSL_REDIRECT = False
 ALLOWED_EMAILS=[
   'hz9xs@virginia.edu',
   'zhz990319@gmail.com',
+  'test@virginia.edu',
 ]
