@@ -112,9 +112,9 @@
 </div>
 {% endfor %}
 
-
-{% if user.is_authenticated %} 
-<center><a href="/accounts/logout">Logout</a></center>
+<!-- 
+{% if not user.is_authenticated %} 
+<center><a href="/accounts/logout">Logout</a></center> -->
 
 <section id="features">
     <div class="feature-row">
@@ -1129,11 +1129,11 @@
             });
     })
 </script>
-
+<!-- 
 {% else %}
 <center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
 
-{% endif %}
+{% endif %} -->
 
 
 </body>

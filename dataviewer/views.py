@@ -406,16 +406,16 @@ def email_check(user):
 # used to track each tab. Parameter: dep_id and tab name. Return: the corresponding dep_id and tab page
 def tracking_dept_tab(request, dept_id, tab):
 
-    # check if user login before accessing the page
-    if(not request.user.is_authenticated):
-        print("please login!")
-        return redirect("/accounts/google/login/")
-    print("google account logged in!")
-    # if google account is not authorized, back to login page and logout from google account
-    if (not email_check(request.user)):
-        messages.error(request, 'Sorry. You do not have access to the data.')
-        print("account does not access!")
-        return redirect("/dataviewer/tracking")
+    # # check if user login before accessing the page
+    # if(not request.user.is_authenticated):
+    #     print("please login!")
+    #     return redirect("/accounts/google/login/")
+    # print("google account logged in!")
+    # # if google account is not authorized, back to login page and logout from google account
+    # if (not email_check(request.user)):
+    #     messages.error(request, 'Sorry. You do not have access to the data.')
+    #     print("account does not access!")
+    #     return redirect("/dataviewer/tracking")
 
     cursor = connections['ema'].cursor()
     # adding a dept_list in order to display the side bar containing each avaliable date button that we can click on to load its corresponding data
