@@ -184,6 +184,7 @@ MESSAGE_TAGS = {
 
 # redirect http to https for safety
 SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # add a list of allowed host so that only certain google accounts can use our website
 ALLOWED_EMAILS=[
