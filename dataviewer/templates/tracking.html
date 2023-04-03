@@ -72,36 +72,6 @@
     });
 </script>
 
-<nav class="side" id="sideNav">
-    <ul>
-        <!--        {% if user.is_authenticated %}-->
-        <!--        <li><p class="lead">Hi {{ user.username }}!</p><li>-->
-        <li><a href="/">HOME</a></li>
-        <li><a href="/dataviewer/tracking">Tracking table</a>
-        <li>
-        <li><a href="/dataviewer/daily">Daily table</a>
-        <li>
-        <li><a href="/dataviewer/weekly">Weekly table</a>
-        <li>
-        <li><a href="/dataviewer/feedback">Feedback table</a>
-        <li>
-            <hr class="my-4">
-            <!--        <form method="post" action="/accounts/logout/">-->
-            <!--            {% csrf_token %}-->
-            <!--          <button style="text-decoration: none" class="btn btn btn-warning btn-lg btn-block" type="submit" onclick="return window.confirm('You are going to Sign out and back to the home page');" >Sign Out</button>-->
-            <!--        </form>-->
-            <!--        {% else %}-->
-            <!--            <script type="text/javascript">-->
-            <!--                var msg = confirm("Please login");-->
-            <!--                if (msg) {-->
-            <!--                    window.location.href = "/";-->
-            <!--                }-->
-            <!--            </script>-->
-            <!--        {% endif %}-->
-
-    </ul>
-    
-</nav>
 <img src="{% static 'images/menu.png'%}" id="menuBtn">
 
 <!-- displaying the message at the top of the page -->
