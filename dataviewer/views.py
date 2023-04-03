@@ -881,6 +881,17 @@ def action_helper(left, right, data, action_category):
 
 
 def daily(request):
+    # check if user login before accessing the page
+    if(not request.user.is_authenticated):
+        print("please login!")
+        return redirect("/accounts/google/login/")
+    print("google account logged in!")
+    # if google account is not authorized, back to login page and logout from google account
+    if (not email_check(request.user)):
+        messages.error(request, 'Sorry. You do not have access to the data.')
+        print("account does not access!")
+        return redirect("/dataviewer/tracking")
+
     cursor = connections['ema'].cursor()
     cursor.execute("SELECT DISTINCT dep_id FROM `sch_data`.`reward_data` WHERE dep_id NOT regexp "
                    "\"^-1$|^200$|^999$|^10$|^11111$|^11112$\"")
@@ -1304,6 +1315,17 @@ def daily(request):
 
 
 def weekly(request):
+    # check if user login before accessing the page
+    if(not request.user.is_authenticated):
+        print("please login!")
+        return redirect("/accounts/google/login/")
+    print("google account logged in!")
+    # if google account is not authorized, back to login page and logout from google account
+    if (not email_check(request.user)):
+        messages.error(request, 'Sorry. You do not have access to the data.')
+        print("account does not access!")
+        return redirect("/dataviewer/tracking")
+
     cursor = connections['ema'].cursor()
     cursor.execute(
         "SELECT DISTINCT dep_id FROM `sch_data`.`reward_data` WHERE dep_id NOT regexp \"^-1$|^200$|^999$|^10$|^11111$|^11112$\"")

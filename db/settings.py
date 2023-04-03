@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-bd0s-hg8u^%1$vq=k5x=#(tmzg2tdl^3&&i)@x&knf&^*hmi1l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -183,7 +183,7 @@ MESSAGE_TAGS = {
 }
 
 # redirect http to https for safety
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 # add a list of allowed host so that only certain google accounts can use our website
 ALLOWED_EMAILS=[
