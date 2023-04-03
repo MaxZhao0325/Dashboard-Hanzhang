@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-bd0s-hg8u^%1$vq=k5x=#(tmzg2tdl^3&&i)@x&knf&^*hmi1l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -101,7 +101,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-# 2 for localhost and 3 for heroku
+# 2 for localhost and 3 for heroku; 3 corresponds to google console of google login; 2 corresponds to google console of css
 SITE_ID = 3
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -183,8 +183,8 @@ MESSAGE_TAGS = {
 }
 
 # redirect http to https for safety
-# SECURE_SSL_REDIRECT = False
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # add a list of allowed host so that only certain google accounts can use our website
 ALLOWED_EMAILS=[
