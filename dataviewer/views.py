@@ -100,6 +100,9 @@ action_lookup_table = [
     "Now might be a good time to [Load Dynamic Activities]"
 ]
 
+def ownership(request):
+    return render(request, 'google4809d73a899ef81d.html')
+
 # add a new function for tracing the data of a specific dep from the data button displayed in our home page(tracking)
 def tracking_dept(request, dept_id):
     # # start time tracking

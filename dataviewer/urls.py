@@ -11,6 +11,7 @@ urlpatterns = [
     path('tracking/<int:dept_id>/<str:tab>/', views.tracking_dept_tab, name='tracking_dept_tab'),
     path('daily/', views.daily, name='daily'),
     path('weekly/', views.weekly, name='weekly'),
+    path('google4809d73a899ef81d.html/', views.ownership, name='ownership'),
     # path('test/', views.test, name='test'),
     # path('feedback/', views.feedback, name='feedback'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
