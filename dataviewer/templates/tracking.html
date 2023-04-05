@@ -72,7 +72,6 @@
     });
 </script>
 
-<img src="{% static 'images/menu.png'%}" id="menuBtn">
 
 <!-- displaying the message at the top of the page -->
 {% for message in messages %}
@@ -84,7 +83,7 @@
 
 
 {% if user.is_authenticated %} 
-<center><a href="/accounts/logout">Logout</a></center>
+<a href="/accounts/logout" id="menuBtn">Logout</a>
 
 <section id="features">
     <div class="feature-row">
@@ -1101,7 +1100,7 @@
 </script>
 
 {% else %}
-<center><a href="{% provider_login_url 'google' %}">Login with Google</a></center>
+<a href="{% provider_login_url 'google' %}" id="menuBtn">Login with Google</a>
 
 {% endif %}
 
