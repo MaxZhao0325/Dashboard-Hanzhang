@@ -190,5 +190,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_EMAILS=[
   'hz9xs@virginia.edu',
   'zhz990319@gmail.com',
-  'test@gmail.com',
+  'elzhang066@gmail.com',
 ]
