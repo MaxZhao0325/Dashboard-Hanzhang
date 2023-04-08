@@ -61,7 +61,7 @@ ROOT_URLCONF = 'db.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR,'templates'), os.path.join(BASE_DIR, 'templates', 'allauth','templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -167,7 +167,10 @@ LOGIN_REDIRECT_URL = '/dataviewer/tracking/'
 LOGOUT_REDIRECT_URL = '/dataviewer/tracking/'
 
 SOCIALACCOUNT_QUERY_EMAIL = True
+# these two lines allow google login/logout to skip one page
 ACCOUNT_LOGOUT_ON_GET= True
+SOCIALACCOUNT_LOGIN_ON_GET= True
+# 
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
