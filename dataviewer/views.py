@@ -1042,6 +1042,7 @@ def daily(request):
         about_yes_text = []
         about_no_text = []
         positive = [0, 0, 0, 0]
+        positive_daily = [0, 0, 0, 0]
         negative = [0, 0, 0]
         now = datetime.datetime.now()
 
@@ -1056,32 +1057,45 @@ def daily(request):
             start_date = "2021-07-01 00:00:00"
             end_date = now.strftime("%Y-%m-%d %H:%M:%S")
 
-        about_sum = [[[[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]]],
+        about_sum = [[[[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]]],
                      [[[0], [start_date]], [[0], [start_date]], [[0], [start_date]]]]
 
         for item in about_db:
+            positive_daily = [0, 0, 0, 0]
             if item[2] == "evening:stress:managyes:1":
                 bar_data = ""
                 if "1" in list(item[1]):
                     bar_data += " Deep breathing <br>"
                     positive[0] += 1
+                    positive_daily[0] += 1
                     about_sum[0][0][0].append(positive[0])
                     about_sum[0][0][1].append(str(item[0]))
+                    about_sum[0][4][0].append(positive_daily[0])
+                    about_sum[0][4][1].append(str(item[0]))
                 if "2" in list(item[1]):
                     bar_data += " Time out <br>"
                     positive[1] += 1
+                    positive_daily[1] += 1
                     about_sum[0][1][0].append(positive[1])
                     about_sum[0][1][1].append(str(item[0]))
+                    about_sum[0][5][0].append(positive_daily[1])
+                    about_sum[0][5][1].append(str(item[0]))
                 if "3" in list(item[1]):
                     bar_data += " Body Scan <br>"
                     positive[2] += 1
+                    positive_daily[2] += 1
                     about_sum[0][2][0].append(positive[2])
                     about_sum[0][2][1].append(str(item[0]))
+                    about_sum[0][6][0].append(positive_daily[2])
+                    about_sum[0][6][1].append(str(item[0]))
                 if "4" in list(item[1]):
                     bar_data += " Enjoyable Activity<br>"
                     positive[3] += 1
+                    positive_daily[3] += 1
                     about_sum[0][3][0].append(positive[3])
                     about_sum[0][3][1].append(str(item[0]))
+                    about_sum[0][7][0].append(positive_daily[3])
+                    about_sum[0][7][1].append(str(item[0]))
                 about_yes_timestamp.append(str(item[0]))
                 about_yes.append(1)
                 about_yes_text.append(bar_data)
@@ -1105,6 +1119,7 @@ def daily(request):
                 about_no_timestamp.append(str(item[0]))
                 about_no_text.append(bar_data)
                 about_no.append(-1)
+            print(positive)
 
         about_sum[0][0][0].append(about_sum[0][0][0][-1])
         about_sum[0][0][1].append(end_date)
@@ -1114,6 +1129,14 @@ def daily(request):
         about_sum[0][2][1].append(end_date)
         about_sum[0][3][0].append(about_sum[0][3][0][-1])
         about_sum[0][3][1].append(end_date)
+        about_sum[0][4][0].append(about_sum[0][4][0][-1])
+        about_sum[0][4][1].append(end_date)
+        about_sum[0][5][0].append(about_sum[0][5][0][-1])
+        about_sum[0][5][1].append(end_date)
+        about_sum[0][6][0].append(about_sum[0][6][0][-1])
+        about_sum[0][6][1].append(end_date)
+        about_sum[0][7][0].append(about_sum[0][7][0][-1])
+        about_sum[0][7][1].append(end_date)
         about_sum[1][0][0].append(about_sum[1][0][0][-1])
         about_sum[1][0][1].append(end_date)
         about_sum[1][1][0].append(about_sum[1][1][0][-1])
