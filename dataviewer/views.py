@@ -1044,6 +1044,7 @@ def daily(request):
         positive = [0, 0, 0, 0]
         positive_daily = [0, 0, 0, 0]
         negative = [0, 0, 0]
+        negative_daily = [0, 0, 0]
         now = datetime.datetime.now()
 
         if str(id[0]) in deployment_date_table:
@@ -1058,10 +1059,11 @@ def daily(request):
             end_date = now.strftime("%Y-%m-%d %H:%M:%S")
 
         about_sum = [[[[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]]],
-                     [[[0], [start_date]], [[0], [start_date]], [[0], [start_date]]]]
+                     [[[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]], [[0], [start_date]]]]
 
         for item in about_db:
             positive_daily = [0, 0, 0, 0]
+            negative_daily = [0, 0, 0]
             if item[2] == "evening:stress:managyes:1":
                 bar_data = ""
                 if "1" in list(item[1]):
@@ -1106,20 +1108,28 @@ def daily(request):
                     negative[0] += 1
                     about_sum[1][0][0].append(negative[0])
                     about_sum[1][0][1].append(str(item[0]))
+                    # negative_daily[0] += 1
+                    # about_sum[1][3][0].append(negative_daily[0])
+                    # about_sum[1][3][1].append(str(item[0]))
                 if "2" in list(item[1]):
                     bar_data += " I didn’t think it would help.<br>"
                     negative[1] += 1
                     about_sum[1][1][0].append(negative[1])
                     about_sum[1][1][1].append(str(item[0]))
+                    # negative_daily[1] += 1
+                    # about_sum[1][4][0].append(negative_daily[1])
+                    # about_sum[1][4][1].append(str(item[0]))
                 if "3" in list(item[1]):
                     bar_data += " I didn’t see the message(s)"
                     negative[2] += 1
                     about_sum[1][2][0].append(negative[2])
                     about_sum[1][2][1].append(str(item[0]))
+                    # negative_daily[2] += 1
+                    # about_sum[1][5][0].append(negative_daily[2])
+                    # about_sum[1][5][1].append(str(item[0]))
                 about_no_timestamp.append(str(item[0]))
                 about_no_text.append(bar_data)
                 about_no.append(-1)
-            print(positive)
 
         about_sum[0][0][0].append(about_sum[0][0][0][-1])
         about_sum[0][0][1].append(end_date)
@@ -1143,6 +1153,12 @@ def daily(request):
         about_sum[1][1][1].append(end_date)
         about_sum[1][2][0].append(about_sum[1][2][0][-1])
         about_sum[1][2][1].append(end_date)
+        # about_sum[1][3][0].append(about_sum[1][3][0][-1])
+        # about_sum[1][3][1].append(end_date)
+        # about_sum[1][4][0].append(about_sum[1][4][0][-1])
+        # about_sum[1][4][1].append(end_date)
+        # about_sum[1][5][0].append(about_sum[1][5][0][-1])
+        # about_sum[1][5][1].append(end_date)
 
 
         about.append(about_yes_timestamp)
