@@ -196,4 +196,5 @@ ALLOWED_EMAILS=[
   'elzhang066@gmail.com',
   'cwgue19@gmail.com',
   'mvk2uy@virginia.edu',
+  'pw7nc@virginia.edu',
 ]
