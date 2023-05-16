@@ -568,8 +568,10 @@ def tracking_dept_tab(request, dept_id, tab):
         print("loading", tab)
         print("start", time.perf_counter())
 
+        dept_date = monitor_date_table[dept_id][0]
+
         cursor.execute(
-            "SELECT time, action FROM `sch_data`.`ema_storing_data` WHERE time > \"2021-03-01 00:00:00\" AND dep_id = (%s) ORDER BY time",
+            "SELECT time, action FROM `sch_data`.`ema_storing_data` WHERE time > \"" + dept_date + "\" AND dep_id = (%s) ORDER BY time",
             dept_id)
         act_var = cursor.fetchall()
 
