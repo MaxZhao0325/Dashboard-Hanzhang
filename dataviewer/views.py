@@ -549,20 +549,20 @@ def tracking_dept_tab(request, dept_id, tab):
 
         print("end", time.perf_counter())
         if(tab == "emotion"):
-            # the latest time stamp in our dataset
-            latest_time_str = emotion_steps[0][len(emotion_steps[0])-1]
-            latest_time_datetime = datetime.datetime.strptime(latest_time_str, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(days=1)
-            # change the time format to year-month-day so that it can be used in javascript
-            latest_time_str = latest_time_datetime.strftime("%Y-%m-%d %H:%M:%S")[:10]
+            # # the latest time stamp in our dataset
+            # latest_time_str = emotion_steps[0][len(emotion_steps[0])-1]
+            # latest_time_datetime = datetime.datetime.strptime(latest_time_str, "%Y-%m-%d %H:%M:%S")+datetime.timedelta(days=1)
+            # # change the time format to year-month-day so that it can be used in javascript
+            # latest_time_str = latest_time_datetime.strftime("%Y-%m-%d %H:%M:%S")[:10]
         
-            # we just want to display the recent 7days or 1 day in default
-            date_default_datetime = latest_time_datetime - datetime.timedelta(days=7)
-            date_default_str = date_default_datetime.strftime("%Y-%m-%d %H:%M:%S")
-            date_default_str = date_default_str[:10]
+            # # we just want to display the recent 7days or 1 day in default
+            # date_default_datetime = latest_time_datetime - datetime.timedelta(days=7)
+            # date_default_str = date_default_datetime.strftime("%Y-%m-%d %H:%M:%S")
+            # date_default_str = date_default_str[:10]
             
             # print(date_default_str)
             # print(latest_time_str)
-            return render(request, 'tracking.html', {'emotion_steps':emotion_steps, 'dept_list': dept_list, 'dept_id':str(dept_id), 'date_default_str':date_default_str, 'latest_time_str':latest_time_str})
+            return render(request, 'tracking.html', {'emotion_steps':emotion_steps, 'dept_list': dept_list, 'dept_id':str(dept_id)})
         return render(request, 'tracking.html', {'emotion_counter':emotion_counter, 'dept_list': dept_list, 'dept_id':str(dept_id)})
 
     # deal with action tab
