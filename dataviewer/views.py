@@ -649,7 +649,11 @@ def tracking_dept_tab(request, dept_id, tab):
             else:
                 start_date = emo_var[0][0].replace(minute=0, second=0, microsecond=0)
 
-            intervention_period = start_date + datetime.timedelta(days=30)
+            # special case for 5112023, the start date of intervention is 6.7 instead of 6.11
+            if(id[0]=="5112023"):
+                intervention_period = start_date + datetime.timedelta(days=27)
+            else:
+                intervention_period = start_date + datetime.timedelta(days=30)
             # print("startdate",start_date)
             # print("intev",intervention_period)
 
