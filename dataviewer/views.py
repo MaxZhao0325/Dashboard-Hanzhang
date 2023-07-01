@@ -834,12 +834,12 @@ def tracking_dept_tab(request, dept_id, tab):
         postrecomm_list.append(postrecomm_yes_text)
         postrecomm_list.append(postrecomm_no_text)
 
-        postrecomm_sum[0].append(postrecomm_sum[0][-1])
-        postrecomm_sum[1].append(now.strftime("%Y-%m-%d %H:%M:%S"))
-        postrecomm_sum[2].append(postrecomm_sum[2][-1])
-        postrecomm_sum[3].append(now.strftime("%Y-%m-%d %H:%M:%S"))
-        postrecomm_sum[4].append(postrecomm_sum[4][-1])
-        postrecomm_sum[5].append(now.strftime("%Y-%m-%d %H:%M:%S"))
+        # postrecomm_sum[0].append(postrecomm_sum[0][-1])
+        # postrecomm_sum[1].append(now.strftime("%Y-%m-%d %H:%M:%S"))
+        # postrecomm_sum[2].append(postrecomm_sum[2][-1])
+        # postrecomm_sum[3].append(now.strftime("%Y-%m-%d %H:%M:%S"))
+        # postrecomm_sum[4].append(postrecomm_sum[4][-1])
+        # postrecomm_sum[5].append(now.strftime("%Y-%m-%d %H:%M:%S"))
 
         print("end", time.perf_counter())
         if(tab=="post_rec"):
